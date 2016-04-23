@@ -1,0 +1,2214 @@
+# Rattle is Copyright (c) 2006-2015 Togaware Pty Ltd.
+
+#============================================================
+# Rattle timestamp: 2016-04-21 11:43:24 x86_64-w64-mingw32 
+
+# Rattle version 4.1.0 user 'pkaran'
+
+# This log file captures all Rattle interactions as R commands. 
+
+Export this log to a file using the Export button or the Tools 
+# menu to save a log of all your activity. This facilitates repeatability. For example, exporting 
+# to a file called 'myrf01.R' will allow you to type in the R Console 
+# the command source('myrf01.R') and so repeat all actions automatically. 
+# Generally, you will want to edit the file to suit your needs. You can also directly 
+# edit this current log in place to record additional information before exporting. 
+ 
+# Saving and loading projects also retains this log.
+
+# We begin by loading the required libraries.
+
+library(rattle)   # To access the weather dataset and utility commands.
+library(magrittr) # For the %>% and %<>% operators.
+
+# This log generally records the process of building a model. However, with very 
+# little effort the log can be used to score a new dataset. The logical variable 
+# 'building' is used to toggle between generating transformations, as when building 
+# a model, and simply using the transformations, as when scoring a dataset.
+
+building <- TRUE
+scoring  <- ! building
+
+
+# A pre-defined value is used to reset the random seed so that results are repeatable.
+
+crv$seed <- 42 
+
+#============================================================
+# Rattle timestamp: 2016-04-21 11:44:01 x86_64-w64-mingw32 
+
+# Load an R data frame.
+
+crs$dataset <- final.reduced.data
+
+# Display a simple summary (structure) of the dataset.
+
+str(crs$dataset)
+
+#============================================================
+# Rattle timestamp: 2016-04-21 11:44:16 x86_64-w64-mingw32 
+
+# Note the user selections. 
+
+# Build the training/validate/test datasets.
+
+set.seed(crv$seed) 
+crs$nobs <- nrow(crs$dataset) # 76020 observations 
+crs$sample <- crs$train <- sample(nrow(crs$dataset), 0.7*crs$nobs) # 53214 observations
+crs$validate <- sample(setdiff(seq_len(nrow(crs$dataset)), crs$train), 0.15*crs$nobs) # 11403 observations
+crs$test <- setdiff(setdiff(seq_len(nrow(crs$dataset)), crs$train), crs$validate) # 11403 observations
+
+# The following variable selections have been noted.
+
+crs$input <- c("var3", "var15", "imp_ent_var16_ult1", "imp_op_var39_comer_ult1",
+     "imp_op_var39_comer_ult3", "imp_op_var40_comer_ult1", "imp_op_var40_comer_ult3", "imp_op_var40_efect_ult1",
+     "imp_op_var40_efect_ult3", "imp_op_var40_ult1", "imp_op_var41_comer_ult1", "imp_op_var41_comer_ult3",
+     "imp_op_var41_efect_ult1", "imp_op_var41_efect_ult3", "imp_op_var41_ult1", "imp_op_var39_efect_ult1",
+     "imp_op_var39_efect_ult3", "imp_op_var39_ult1", "imp_sal_var16_ult1", "ind_var1_0",
+     "ind_var1", "ind_var5_0", "ind_var5", "ind_var6_0",
+     "ind_var8_0", "ind_var8", "ind_var12_0", "ind_var12",
+     "ind_var13_0", "ind_var13_corto_0", "ind_var13_corto", "ind_var13_largo_0",
+     "ind_var13_largo", "ind_var13", "ind_var14_0", "ind_var14",
+     "ind_var17_0", "ind_var17", "ind_var19", "ind_var20_0",
+     "ind_var20", "ind_var24_0", "ind_var24", "ind_var25_cte",
+     "ind_var26_0", "ind_var26_cte", "ind_var26", "ind_var25_0",
+     "ind_var25", "ind_var29_0", "ind_var30_0", "ind_var30",
+     "ind_var31_0", "ind_var31", "ind_var32_cte", "ind_var32_0",
+     "ind_var32", "ind_var33_0", "ind_var33", "ind_var34_0",
+     "ind_var37_cte", "ind_var37_0", "ind_var37", "ind_var39_0",
+     "ind_var40_0", "ind_var40", "ind_var41_0", "ind_var39",
+     "ind_var44_0", "ind_var44", "num_var1_0", "num_var1",
+     "num_var4", "num_var5_0", "num_var5", "num_var6_0",
+     "num_var8_0", "num_var8", "num_var12_0", "num_var12",
+     "num_var13_0", "num_var13_corto_0", "num_var13_corto", "num_var13_largo_0",
+     "num_var13_largo", "num_var13", "num_var14_0", "num_var14",
+     "num_var17_0", "num_var17", "num_var18", "num_var20_0",
+     "num_var20", "num_var24_0", "num_var24", "num_var26_0",
+     "num_var26", "num_var25_0", "num_var25", "num_op_var40_hace2",
+     "num_op_var40_hace3", "num_op_var40_ult1", "num_op_var40_ult3", "num_op_var41_hace2",
+     "num_op_var41_hace3", "num_op_var41_ult1", "num_op_var41_ult3", "num_op_var39_hace2",
+     "num_op_var39_hace3", "num_op_var39_ult1", "num_op_var39_ult3", "num_var29_0",
+     "num_var30_0", "num_var30", "num_var31_0", "num_var31",
+     "num_var32_0", "num_var32", "num_var33_0", "num_var33",
+     "num_var35", "num_var37_med_ult2", "num_var37_0", "num_var37",
+     "num_var39_0", "num_var40_0", "num_var40", "num_var41_0",
+     "num_var39", "num_var42_0", "num_var42", "num_var44_0",
+     "num_var44", "saldo_var1", "saldo_var5", "saldo_var6",
+     "saldo_var8", "saldo_var12", "saldo_var13_corto", "saldo_var13_largo",
+     "saldo_var13_medio", "saldo_var13", "saldo_var14", "saldo_var17",
+     "saldo_var18", "saldo_var20", "saldo_var24", "saldo_var26",
+     "saldo_var25", "saldo_var29", "saldo_var30", "saldo_var31",
+     "saldo_var32", "saldo_var33", "saldo_var34", "saldo_var37",
+     "saldo_var40", "saldo_var42", "saldo_var44", "var36",
+     "delta_imp_aport_var13_1y3", "delta_imp_aport_var17_1y3", "delta_imp_compra_var44_1y3", "delta_imp_reemb_var13_1y3",
+     "delta_imp_reemb_var17_1y3", "delta_imp_trasp_var17_in_1y3", "delta_imp_trasp_var17_out_1y3", "delta_imp_trasp_var33_in_1y3",
+     "delta_imp_venta_var44_1y3", "delta_num_aport_var13_1y3", "delta_num_aport_var17_1y3", "delta_num_compra_var44_1y3",
+     "delta_num_reemb_var13_1y3", "delta_num_reemb_var17_1y3", "delta_num_trasp_var17_in_1y3", "delta_num_trasp_var17_out_1y3",
+     "delta_num_trasp_var33_in_1y3", "delta_num_venta_var44_1y3", "imp_amort_var18_ult1", "imp_amort_var34_ult1",
+     "imp_aport_var13_hace3", "imp_aport_var13_ult1", "imp_aport_var17_hace3", "imp_aport_var17_ult1",
+     "imp_aport_var33_hace3", "imp_aport_var33_ult1", "imp_var7_emit_ult1", "imp_var7_recib_ult1",
+     "imp_compra_var44_hace3", "imp_compra_var44_ult1", "imp_reemb_var13_ult1", "imp_reemb_var17_ult1",
+     "imp_var43_emit_ult1", "imp_trans_var37_ult1", "imp_trasp_var17_in_hace3", "imp_trasp_var17_in_ult1",
+     "imp_trasp_var17_out_ult1", "imp_trasp_var33_in_hace3", "imp_trasp_var33_in_ult1", "imp_venta_var44_hace3",
+     "imp_venta_var44_ult1", "ind_var7_emit_ult1", "ind_var7_recib_ult1", "ind_var10_ult1",
+     "ind_var10cte_ult1", "ind_var9_cte_ult1", "ind_var9_ult1", "ind_var43_emit_ult1",
+     "ind_var43_recib_ult1", "var21", "num_aport_var13_hace3", "num_aport_var13_ult1",
+     "num_aport_var17_hace3", "num_aport_var17_ult1", "num_aport_var33_hace3", "num_aport_var33_ult1",
+     "num_var7_recib_ult1", "num_compra_var44_hace3", "num_compra_var44_ult1", "num_ent_var16_ult1",
+     "num_var22_hace2", "num_var22_hace3", "num_var22_ult1", "num_var22_ult3",
+     "num_med_var22_ult3", "num_med_var45_ult3", "num_meses_var5_ult3", "num_meses_var8_ult3",
+     "num_meses_var12_ult3", "num_meses_var13_corto_ult3", "num_meses_var13_largo_ult3", "num_meses_var17_ult3",
+     "num_meses_var29_ult3", "num_meses_var33_ult3", "num_meses_var39_vig_ult3", "num_meses_var44_ult3",
+     "num_op_var39_comer_ult1", "num_op_var39_comer_ult3", "num_op_var40_comer_ult1", "num_op_var40_comer_ult3",
+     "num_op_var40_efect_ult1", "num_op_var40_efect_ult3", "num_op_var41_comer_ult1", "num_op_var41_comer_ult3",
+     "num_op_var41_efect_ult1", "num_op_var41_efect_ult3", "num_op_var39_efect_ult1", "num_op_var39_efect_ult3",
+     "num_reemb_var13_ult1", "num_reemb_var17_ult1", "num_sal_var16_ult1", "num_var43_emit_ult1",
+     "num_var43_recib_ult1", "num_trasp_var11_ult1", "num_trasp_var17_out_ult1", "num_trasp_var33_in_hace3",
+     "num_trasp_var33_in_ult1", "num_venta_var44_ult1", "num_var45_hace2", "num_var45_hace3",
+     "num_var45_ult1", "num_var45_ult3", "saldo_medio_var5_hace2", "saldo_medio_var5_hace3",
+     "saldo_medio_var5_ult1", "saldo_medio_var5_ult3", "saldo_medio_var8_hace2", "saldo_medio_var8_hace3",
+     "saldo_medio_var8_ult1", "saldo_medio_var8_ult3", "saldo_medio_var12_hace2", "saldo_medio_var12_hace3",
+     "saldo_medio_var12_ult1", "saldo_medio_var12_ult3", "saldo_medio_var13_corto_hace2", "saldo_medio_var13_corto_hace3",
+     "saldo_medio_var13_corto_ult1", "saldo_medio_var13_corto_ult3", "saldo_medio_var13_largo_hace2", "saldo_medio_var13_largo_hace3",
+     "saldo_medio_var13_largo_ult1", "saldo_medio_var13_largo_ult3", "saldo_medio_var13_medio_hace2", "saldo_medio_var13_medio_ult1",
+     "saldo_medio_var13_medio_ult3", "saldo_medio_var17_hace2", "saldo_medio_var17_hace3", "saldo_medio_var17_ult1",
+     "saldo_medio_var17_ult3", "saldo_medio_var29_hace2", "saldo_medio_var29_ult1", "saldo_medio_var29_ult3",
+     "saldo_medio_var33_hace2", "saldo_medio_var33_hace3", "saldo_medio_var33_ult1", "saldo_medio_var33_ult3",
+     "saldo_medio_var44_hace2", "saldo_medio_var44_hace3", "saldo_medio_var44_ult1", "saldo_medio_var44_ult3",
+     "var38")
+
+crs$numeric <- c("var3", "var15", "imp_ent_var16_ult1", "imp_op_var39_comer_ult1",
+     "imp_op_var39_comer_ult3", "imp_op_var40_comer_ult1", "imp_op_var40_comer_ult3", "imp_op_var40_efect_ult1",
+     "imp_op_var40_efect_ult3", "imp_op_var40_ult1", "imp_op_var41_comer_ult1", "imp_op_var41_comer_ult3",
+     "imp_op_var41_efect_ult1", "imp_op_var41_efect_ult3", "imp_op_var41_ult1", "imp_op_var39_efect_ult1",
+     "imp_op_var39_efect_ult3", "imp_op_var39_ult1", "imp_sal_var16_ult1", "ind_var1_0",
+     "ind_var1", "ind_var5_0", "ind_var5", "ind_var6_0",
+     "ind_var8_0", "ind_var8", "ind_var12_0", "ind_var12",
+     "ind_var13_0", "ind_var13_corto_0", "ind_var13_corto", "ind_var13_largo_0",
+     "ind_var13_largo", "ind_var13", "ind_var14_0", "ind_var14",
+     "ind_var17_0", "ind_var17", "ind_var19", "ind_var20_0",
+     "ind_var20", "ind_var24_0", "ind_var24", "ind_var25_cte",
+     "ind_var26_0", "ind_var26_cte", "ind_var26", "ind_var25_0",
+     "ind_var25", "ind_var29_0", "ind_var30_0", "ind_var30",
+     "ind_var31_0", "ind_var31", "ind_var32_cte", "ind_var32_0",
+     "ind_var32", "ind_var33_0", "ind_var33", "ind_var34_0",
+     "ind_var37_cte", "ind_var37_0", "ind_var37", "ind_var39_0",
+     "ind_var40_0", "ind_var40", "ind_var41_0", "ind_var39",
+     "ind_var44_0", "ind_var44", "num_var1_0", "num_var1",
+     "num_var4", "num_var5_0", "num_var5", "num_var6_0",
+     "num_var8_0", "num_var8", "num_var12_0", "num_var12",
+     "num_var13_0", "num_var13_corto_0", "num_var13_corto", "num_var13_largo_0",
+     "num_var13_largo", "num_var13", "num_var14_0", "num_var14",
+     "num_var17_0", "num_var17", "num_var18", "num_var20_0",
+     "num_var20", "num_var24_0", "num_var24", "num_var26_0",
+     "num_var26", "num_var25_0", "num_var25", "num_op_var40_hace2",
+     "num_op_var40_hace3", "num_op_var40_ult1", "num_op_var40_ult3", "num_op_var41_hace2",
+     "num_op_var41_hace3", "num_op_var41_ult1", "num_op_var41_ult3", "num_op_var39_hace2",
+     "num_op_var39_hace3", "num_op_var39_ult1", "num_op_var39_ult3", "num_var29_0",
+     "num_var30_0", "num_var30", "num_var31_0", "num_var31",
+     "num_var32_0", "num_var32", "num_var33_0", "num_var33",
+     "num_var35", "num_var37_med_ult2", "num_var37_0", "num_var37",
+     "num_var39_0", "num_var40_0", "num_var40", "num_var41_0",
+     "num_var39", "num_var42_0", "num_var42", "num_var44_0",
+     "num_var44", "saldo_var1", "saldo_var5", "saldo_var6",
+     "saldo_var8", "saldo_var12", "saldo_var13_corto", "saldo_var13_largo",
+     "saldo_var13_medio", "saldo_var13", "saldo_var14", "saldo_var17",
+     "saldo_var18", "saldo_var20", "saldo_var24", "saldo_var26",
+     "saldo_var25", "saldo_var29", "saldo_var30", "saldo_var31",
+     "saldo_var32", "saldo_var33", "saldo_var34", "saldo_var37",
+     "saldo_var40", "saldo_var42", "saldo_var44", "var36",
+     "delta_imp_aport_var13_1y3", "delta_imp_aport_var17_1y3", "delta_imp_compra_var44_1y3", "delta_imp_reemb_var13_1y3",
+     "delta_imp_reemb_var17_1y3", "delta_imp_trasp_var17_in_1y3", "delta_imp_trasp_var17_out_1y3", "delta_imp_trasp_var33_in_1y3",
+     "delta_imp_venta_var44_1y3", "delta_num_aport_var13_1y3", "delta_num_aport_var17_1y3", "delta_num_compra_var44_1y3",
+     "delta_num_reemb_var13_1y3", "delta_num_reemb_var17_1y3", "delta_num_trasp_var17_in_1y3", "delta_num_trasp_var17_out_1y3",
+     "delta_num_trasp_var33_in_1y3", "delta_num_venta_var44_1y3", "imp_amort_var18_ult1", "imp_amort_var34_ult1",
+     "imp_aport_var13_hace3", "imp_aport_var13_ult1", "imp_aport_var17_hace3", "imp_aport_var17_ult1",
+     "imp_aport_var33_hace3", "imp_aport_var33_ult1", "imp_var7_emit_ult1", "imp_var7_recib_ult1",
+     "imp_compra_var44_hace3", "imp_compra_var44_ult1", "imp_reemb_var13_ult1", "imp_reemb_var17_ult1",
+     "imp_var43_emit_ult1", "imp_trans_var37_ult1", "imp_trasp_var17_in_hace3", "imp_trasp_var17_in_ult1",
+     "imp_trasp_var17_out_ult1", "imp_trasp_var33_in_hace3", "imp_trasp_var33_in_ult1", "imp_venta_var44_hace3",
+     "imp_venta_var44_ult1", "ind_var7_emit_ult1", "ind_var7_recib_ult1", "ind_var10_ult1",
+     "ind_var10cte_ult1", "ind_var9_cte_ult1", "ind_var9_ult1", "ind_var43_emit_ult1",
+     "ind_var43_recib_ult1", "var21", "num_aport_var13_hace3", "num_aport_var13_ult1",
+     "num_aport_var17_hace3", "num_aport_var17_ult1", "num_aport_var33_hace3", "num_aport_var33_ult1",
+     "num_var7_recib_ult1", "num_compra_var44_hace3", "num_compra_var44_ult1", "num_ent_var16_ult1",
+     "num_var22_hace2", "num_var22_hace3", "num_var22_ult1", "num_var22_ult3",
+     "num_med_var22_ult3", "num_med_var45_ult3", "num_meses_var5_ult3", "num_meses_var8_ult3",
+     "num_meses_var12_ult3", "num_meses_var13_corto_ult3", "num_meses_var13_largo_ult3", "num_meses_var17_ult3",
+     "num_meses_var29_ult3", "num_meses_var33_ult3", "num_meses_var39_vig_ult3", "num_meses_var44_ult3",
+     "num_op_var39_comer_ult1", "num_op_var39_comer_ult3", "num_op_var40_comer_ult1", "num_op_var40_comer_ult3",
+     "num_op_var40_efect_ult1", "num_op_var40_efect_ult3", "num_op_var41_comer_ult1", "num_op_var41_comer_ult3",
+     "num_op_var41_efect_ult1", "num_op_var41_efect_ult3", "num_op_var39_efect_ult1", "num_op_var39_efect_ult3",
+     "num_reemb_var13_ult1", "num_reemb_var17_ult1", "num_sal_var16_ult1", "num_var43_emit_ult1",
+     "num_var43_recib_ult1", "num_trasp_var11_ult1", "num_trasp_var17_out_ult1", "num_trasp_var33_in_hace3",
+     "num_trasp_var33_in_ult1", "num_venta_var44_ult1", "num_var45_hace2", "num_var45_hace3",
+     "num_var45_ult1", "num_var45_ult3", "saldo_medio_var5_hace2", "saldo_medio_var5_hace3",
+     "saldo_medio_var5_ult1", "saldo_medio_var5_ult3", "saldo_medio_var8_hace2", "saldo_medio_var8_hace3",
+     "saldo_medio_var8_ult1", "saldo_medio_var8_ult3", "saldo_medio_var12_hace2", "saldo_medio_var12_hace3",
+     "saldo_medio_var12_ult1", "saldo_medio_var12_ult3", "saldo_medio_var13_corto_hace2", "saldo_medio_var13_corto_hace3",
+     "saldo_medio_var13_corto_ult1", "saldo_medio_var13_corto_ult3", "saldo_medio_var13_largo_hace2", "saldo_medio_var13_largo_hace3",
+     "saldo_medio_var13_largo_ult1", "saldo_medio_var13_largo_ult3", "saldo_medio_var13_medio_hace2", "saldo_medio_var13_medio_ult1",
+     "saldo_medio_var13_medio_ult3", "saldo_medio_var17_hace2", "saldo_medio_var17_hace3", "saldo_medio_var17_ult1",
+     "saldo_medio_var17_ult3", "saldo_medio_var29_hace2", "saldo_medio_var29_ult1", "saldo_medio_var29_ult3",
+     "saldo_medio_var33_hace2", "saldo_medio_var33_hace3", "saldo_medio_var33_ult1", "saldo_medio_var33_ult3",
+     "saldo_medio_var44_hace2", "saldo_medio_var44_hace3", "saldo_medio_var44_ult1", "saldo_medio_var44_ult3",
+     "var38")
+
+crs$categoric <- NULL
+
+crs$target  <- "TARGET"
+crs$risk    <- NULL
+crs$ident   <- "ID"
+crs$ignore  <- c("ind_var2_0", "ind_var2", "ind_var27_0", "ind_var28_0", "ind_var28", "ind_var27", "ind_var41", "ind_var46_0", "ind_var46", "num_var27_0", "num_var28_0", "num_var28", "num_var27", "num_var41", "num_var46_0", "num_var46", "saldo_var28", "saldo_var27", "saldo_var41", "saldo_var46", "imp_amort_var18_hace3", "imp_amort_var34_hace3", "imp_reemb_var13_hace3", "imp_reemb_var33_hace3", "imp_trasp_var17_out_hace3", "imp_trasp_var33_out_hace3", "num_var2_0_ult1", "num_var2_ult1", "num_reemb_var13_hace3", "num_reemb_var33_hace3", "num_trasp_var17_out_hace3", "num_trasp_var33_out_hace3", "saldo_var2_ult1", "saldo_medio_var13_medio_hace3")
+crs$weights <- NULL
+
+#============================================================
+# Rattle timestamp: 2016-04-21 11:44:56 x86_64-w64-mingw32 
+
+# Support vector machine. 
+
+# The 'kernlab' package provides the 'ksvm' function.
+
+library(kernlab, quietly=TRUE)
+
+# Build a Support Vector Machine model.
+
+set.seed(crv$seed)
+crs$ksvm <- ksvm(as.factor(TARGET) ~ .,
+      data=crs$dataset[crs$train,c(crs$input, crs$target)],
+      kernel="rbfdot",
+      prob.model=TRUE)
+
+# Generate a textual view of the SVM model.
+
+crs$ksvm
+
+# Time taken: 1.89 hours
+
+#============================================================
+# Rattle timestamp: 2016-04-21 18:34:46 x86_64-w64-mingw32 
+
+# Evaluate model performance. 
+
+# Generate an Error Matrix for the SVM model.
+
+# Obtain the response from the SVM model.
+
+crs$pr <- kernlab::predict(crs$ksvm, newdata=na.omit(crs$dataset[crs$validate, c(crs$input, crs$target)]))
+
+# Generate the confusion matrix showing counts.
+
+table(na.omit(crs$dataset[crs$validate, c(crs$input, crs$target)])$TARGET, crs$pr,
+        useNA="ifany",
+        dnn=c("Actual", "Predicted"))
+
+# Generate the confusion matrix showing proportions.
+
+pcme <- function(actual, cl)
+{
+  x <- table(actual, cl)
+  nc <- nrow(x) # Number of classes.
+  nv <- length(actual) - sum(is.na(actual) | is.na(cl)) # Number of values.
+  tbl <- cbind(x/nv,
+               Error=sapply(1:nc,
+                 function(r) round(sum(x[r,-r])/sum(x[r,]), 2)))
+  names(attr(tbl, "dimnames")) <- c("Actual", "Predicted")
+  return(tbl)
+}
+per <- pcme(na.omit(crs$dataset[crs$validate, c(crs$input, crs$target)])$TARGET, crs$pr)
+round(per, 2)
+
+# Calculate the overall error percentage.
+
+cat(100*round(1-sum(diag(per), na.rm=TRUE), 2))
+
+# Calculate the averaged class error percentage.
+
+cat(100*round(mean(per[,"Error"], na.rm=TRUE), 2))
+
+#============================================================
+# Rattle timestamp: 2016-04-21 18:36:09 x86_64-w64-mingw32 
+
+# Evaluate model performance. 
+
+# Cost Curve: requires the ROCR package.
+
+library(ROCR)
+
+# Generate a Cost Curve for the SVM model on final.reduced.data [validate].
+
+crs$pr <- kernlab::predict(crs$ksvm, newdata=na.omit(crs$dataset[crs$validate, c(crs$input, crs$target)]), type="probabilities")[,2]
+plot(0, 0, xlim=c(0, 1), ylim=c(0, 1), xlab="Probability cost function", ylab="Normalized expected cost")
+lines(c(0,1),c(0,1))
+lines(c(0,1),c(1,0))
+
+# Remove observations with missing target.
+
+no.miss   <- na.omit(na.omit(crs$dataset[crs$validate, c(crs$input, crs$target)])$TARGET)
+miss.list <- attr(no.miss, "na.action")
+attributes(no.miss) <- NULL
+
+if (length(miss.list))
+{
+  pred <- prediction(crs$pr[-miss.list], no.miss)
+} else
+{
+  pred <- prediction(crs$pr, no.miss)
+}
+perf1 <- performance(pred, "fpr", "fnr")
+for (i in seq_along(perf1@x.values))
+{
+	for (j in seq_along(perf1@x.values[[i]]))
+	{
+		lines(c(0,1),c(perf1@y.values[[i]][j],
+				perf1@x.values[[i]][j]),
+				col=terrain.colors(10)[i],lty=3)
+	}
+}
+perf<-performance(pred, "ecost")
+
+# Bug in ROCR 1.0-3 does not obey the add command.
+# Calling the function directly does work.
+
+.plot.performance(perf, lwd=1.5, xlim=c(0,1), ylim=c(0,1), add=T)
+op <- par(xpd=TRUE)
+text(0, 1.07, "FPR")
+text(1, 1.07, "FNR")
+par(op)
+text(0.12, 1, "Predict +ve")
+text(0.88, 1, "Predict -ve")
+title(main="Cost Curve SVM final.reduced.data [validate]",
+    sub=paste("Rattle", format(Sys.time(), "%Y-%b-%d %H:%M:%S"), Sys.info()["user"]))
+
+#============================================================
+# Rattle timestamp: 2016-04-21 18:44:02 x86_64-w64-mingw32 
+
+# Evaluate model performance. 
+
+# ROC Curve: requires the ROCR package.
+
+library(ROCR)
+
+# ROC Curve: requires the ggplot2 package.
+
+library(ggplot2, quietly=TRUE)
+
+# Generate an ROC Curve for the ksvm model on final.reduced.data [validate].
+
+crs$pr <- kernlab::predict(crs$ksvm, newdata=na.omit(crs$dataset[crs$validate, c(crs$input, crs$target)]), type="probabilities")[,2]
+
+# Remove observations with missing target.
+
+no.miss   <- na.omit(na.omit(crs$dataset[crs$validate, c(crs$input, crs$target)])$TARGET)
+miss.list <- attr(no.miss, "na.action")
+attributes(no.miss) <- NULL
+
+if (length(miss.list))
+{
+  pred <- prediction(crs$pr[-miss.list], no.miss)
+} else
+{
+  pred <- prediction(crs$pr, no.miss)
+}
+
+pe <- performance(pred, "tpr", "fpr")
+au <- performance(pred, "auc")@y.values[[1]]
+pd <- data.frame(fpr=unlist(pe@x.values), tpr=unlist(pe@y.values))
+p <- ggplot(pd, aes(x=fpr, y=tpr))
+p <- p + geom_line(colour="red")
+p <- p + xlab("False Positive Rate") + ylab("True Positive Rate")
+p <- p + ggtitle("ROC Curve SVM final.reduced.data [validate] TARGET")
+p <- p + theme(plot.title=element_text(size=10))
+p <- p + geom_line(data=data.frame(), aes(x=c(0,1), y=c(0,1)), colour="grey")
+p <- p + annotate("text", x=0.50, y=0.00, hjust=0, vjust=0, size=5,
+                   label=paste("AUC =", round(au, 2)))
+print(p)
+
+# Calculate the area under the curve for the plot.
+
+
+# Remove observations with missing target.
+
+no.miss   <- na.omit(na.omit(crs$dataset[crs$validate, c(crs$input, crs$target)])$TARGET)
+miss.list <- attr(no.miss, "na.action")
+attributes(no.miss) <- NULL
+
+if (length(miss.list))
+{
+  pred <- prediction(crs$pr[-miss.list], no.miss)
+} else
+{
+  pred <- prediction(crs$pr, no.miss)
+}
+performance(pred, "auc")
+
+#============================================================
+# Rattle timestamp: 2016-04-21 18:46:01 x86_64-w64-mingw32 
+
+# Evaluate model performance. 
+
+# Precision/Recall Plot: requires the ROCR package
+
+library(ROCR)
+
+# Generate a Precision/Recall Plot for the ksvm model on final.reduced.data [validate].
+
+crs$pr <- kernlab::predict(crs$ksvm, newdata=na.omit(crs$dataset[crs$validate, c(crs$input, crs$target)]), type="probabilities")[,2]
+
+# Remove observations with missing target.
+
+no.miss   <- na.omit(na.omit(crs$dataset[crs$validate, c(crs$input, crs$target)])$TARGET)
+miss.list <- attr(no.miss, "na.action")
+attributes(no.miss) <- NULL
+
+if (length(miss.list))
+{
+  pred <- prediction(crs$pr[-miss.list], no.miss)
+} else
+{
+  pred <- prediction(crs$pr, no.miss)
+}
+ROCR::plot(performance(pred, "prec", "rec"), col="#CC0000FF", lty=1, add=FALSE)
+
+
+# Add a legend to the plot.
+
+legend("bottomleft", c("ksvm"), col=rainbow(1, 1, .8), lty=1:1, title="Models", inset=c(0.05, 0.05))
+
+# Add decorations to the plot.
+
+title(main="Precision/Recall Plot  final.reduced.data [validate]",
+    sub=paste("Rattle", format(Sys.time(), "%Y-%b-%d %H:%M:%S"), Sys.info()["user"]))
+grid()
+
+#============================================================
+# Rattle timestamp: 2016-04-21 18:47:53 x86_64-w64-mingw32 
+
+# Evaluate model performance. 
+
+# Sensitivity/Specificity Plot: requires the ROCR package
+
+library(ROCR)
+
+# Generate Sensitivity/Specificity Plot for ksvm model on final.reduced.data [**train**].
+
+crs$pr <- kernlab::predict(crs$ksvm, newdata=na.omit(crs$dataset[crs$sample, c(crs$input, crs$target)]), type="probabilities")[,2]
+
+# Remove observations with missing target.
+
+no.miss   <- na.omit(na.omit(crs$dataset[crs$sample, c(crs$input, crs$target)])$TARGET)
+miss.list <- attr(no.miss, "na.action")
+attributes(no.miss) <- NULL
+
+if (length(miss.list))
+{
+  pred <- prediction(crs$pr[-miss.list], no.miss)
+} else
+{
+  pred <- prediction(crs$pr, no.miss)
+}
+ROCR::plot(performance(pred, "sens", "spec"), col="#CC0000FF", lty=1, add=FALSE)
+
+
+# Add a legend to the plot.
+
+legend("bottomleft", c("ksvm"), col=rainbow(1, 1, .8), lty=1:1, title="Models", inset=c(0.05, 0.05))
+
+# Add decorations to the plot.
+
+title(main="Sensitivity/Specificity (tpr/tnr)  final.reduced.data [**train**]",
+    sub=paste("Rattle", format(Sys.time(), "%Y-%b-%d %H:%M:%S"), Sys.info()["user"]))
+grid()
+
+#============================================================
+# Rattle timestamp: 2016-04-21 18:52:24 x86_64-w64-mingw32 
+
+# Evaluate model performance. 
+
+# KSVM: Generate a Predicted v Observed plot for ksvm model on final.reduced.data [validate].
+
+crs$pr <- kernlab::predict(crs$ksvm, newdata=na.omit(crs$dataset[crs$validate, c(crs$input, crs$target)]), type="probabilities")[,2]
+
+# Obtain the observed output for the dataset.
+
+obs <- subset(na.omit(crs$dataset[crs$validate, c(crs$input, crs$target)]), select=crs$target)
+
+# Handle in case categoric target treated as numeric.
+
+obs.rownames <- rownames(obs)
+obs <- as.numeric(obs[[1]])
+obs <- data.frame(TARGET=obs)
+rownames(obs) <- obs.rownames
+
+# Combine the observed values with the predicted.
+
+fitpoints <- na.omit(cbind(obs, Predicted=crs$pr))
+
+# Obtain the pseudo R2 - a correlation.
+
+fitcorr <- format(cor(fitpoints[,1], fitpoints[,2])^2, digits=4)
+
+# Plot settings for the true points and best fit.
+
+op <- par(c(lty="solid", col="blue"))
+
+# Display the observed (X) versus predicted (Y) points.
+
+plot(jitter(fitpoints[[1]]), fitpoints[[2]], asp=1, xlab="TARGET (Jittered)", ylab="Predicted")
+
+# Generate a simple linear fit between predicted and observed.
+
+prline <- lm(fitpoints[,2] ~ fitpoints[,1])
+
+# Add the linear fit to the plot.
+
+abline(prline)
+
+# Add a diagonal representing perfect correlation.
+
+par(c(lty="dashed", col="black"))
+abline(0, 1)
+
+# Include a pseudo R-square on the plot
+
+legend("bottomright",  sprintf(" Pseudo R-square=%s ", fitcorr),  bty="n")
+
+# Add a title and grid to the plot.
+
+title(main="Predicted vs. Observed
+ SVM Model
+ final.reduced.data [validate]",
+    sub=paste("Rattle", format(Sys.time(), "%Y-%b-%d %H:%M:%S"), Sys.info()["user"]))
+grid()
+
+#============================================================
+# Rattle timestamp: 2016-04-21 18:56:46 x86_64-w64-mingw32 
+
+# Evaluate model performance. 
+
+# Sensitivity/Specificity Plot: requires the ROCR package
+
+library(ROCR)
+
+# Generate Sensitivity/Specificity Plot for ksvm model on final.reduced.data [validate].
+
+crs$pr <- kernlab::predict(crs$ksvm, newdata=na.omit(crs$dataset[crs$validate, c(crs$input, crs$target)]), type="probabilities")[,2]
+
+# Remove observations with missing target.
+
+no.miss   <- na.omit(na.omit(crs$dataset[crs$validate, c(crs$input, crs$target)])$TARGET)
+miss.list <- attr(no.miss, "na.action")
+attributes(no.miss) <- NULL
+
+if (length(miss.list))
+{
+  pred <- prediction(crs$pr[-miss.list], no.miss)
+} else
+{
+  pred <- prediction(crs$pr, no.miss)
+}
+ROCR::plot(performance(pred, "sens", "spec"), col="#CC0000FF", lty=1, add=FALSE)
+
+
+# Add a legend to the plot.
+
+legend("bottomleft", c("ksvm"), col=rainbow(1, 1, .8), lty=1:1, title="Models", inset=c(0.05, 0.05))
+
+# Add decorations to the plot.
+
+title(main="Sensitivity/Specificity (tpr/tnr)  final.reduced.data [validate]",
+    sub=paste("Rattle", format(Sys.time(), "%Y-%b-%d %H:%M:%S"), Sys.info()["user"]))
+grid()
+
+#============================================================
+# Rattle timestamp: 2016-04-21 19:00:39 x86_64-w64-mingw32 
+
+# Decision Tree 
+
+# The 'rpart' package provides the 'rpart' function.
+
+library(rpart, quietly=TRUE)
+
+# Reset the random number seed to obtain the same results each time.
+
+set.seed(crv$seed)
+
+# Build the Decision Tree model.
+
+crs$rpart <- rpart(TARGET ~ .,
+    data=crs$dataset[crs$train, c(crs$input, crs$target)],
+    method="class",
+    parms=list(split="information"),
+      control=rpart.control(minsplit=3,
+           minbucket=1,
+           maxdepth=5,
+           cp=0.001000,
+        usesurrogate=0, 
+        maxsurrogate=0))
+
+# Generate a textual view of the Decision Tree model.
+
+print(crs$rpart)
+printcp(crs$rpart)
+cat("\n")
+
+# Time taken: 3.33 secs
+
+#============================================================
+# Rattle timestamp: 2016-04-21 19:03:15 x86_64-w64-mingw32 
+
+# Evaluate model performance. 
+
+# Generate an Error Matrix for the Decision Tree model.
+
+# Obtain the response from the Decision Tree model.
+
+crs$pr <- predict(crs$rpart, newdata=crs$dataset[crs$validate, c(crs$input, crs$target)], type="class")
+
+# Generate the confusion matrix showing counts.
+
+table(crs$dataset[crs$validate, c(crs$input, crs$target)]$TARGET, crs$pr,
+        useNA="ifany",
+        dnn=c("Actual", "Predicted"))
+
+# Generate the confusion matrix showing proportions.
+
+pcme <- function(actual, cl)
+{
+  x <- table(actual, cl)
+  nc <- nrow(x) # Number of classes.
+  nv <- length(actual) - sum(is.na(actual) | is.na(cl)) # Number of values.
+  tbl <- cbind(x/nv,
+               Error=sapply(1:nc,
+                 function(r) round(sum(x[r,-r])/sum(x[r,]), 2)))
+  names(attr(tbl, "dimnames")) <- c("Actual", "Predicted")
+  return(tbl)
+}
+per <- pcme(crs$dataset[crs$validate, c(crs$input, crs$target)]$TARGET, crs$pr)
+round(per, 2)
+
+# Calculate the overall error percentage.
+
+cat(100*round(1-sum(diag(per), na.rm=TRUE), 2))
+
+# Calculate the averaged class error percentage.
+
+cat(100*round(mean(per[,"Error"], na.rm=TRUE), 2))
+
+# Generate an Error Matrix for the SVM model.
+
+# Obtain the response from the SVM model.
+
+crs$pr <- kernlab::predict(crs$ksvm, newdata=na.omit(crs$dataset[crs$validate, c(crs$input, crs$target)]))
+
+# Generate the confusion matrix showing counts.
+
+table(na.omit(crs$dataset[crs$validate, c(crs$input, crs$target)])$TARGET, crs$pr,
+        useNA="ifany",
+        dnn=c("Actual", "Predicted"))
+
+# Generate the confusion matrix showing proportions.
+
+pcme <- function(actual, cl)
+{
+  x <- table(actual, cl)
+  nc <- nrow(x) # Number of classes.
+  nv <- length(actual) - sum(is.na(actual) | is.na(cl)) # Number of values.
+  tbl <- cbind(x/nv,
+               Error=sapply(1:nc,
+                 function(r) round(sum(x[r,-r])/sum(x[r,]), 2)))
+  names(attr(tbl, "dimnames")) <- c("Actual", "Predicted")
+  return(tbl)
+}
+per <- pcme(na.omit(crs$dataset[crs$validate, c(crs$input, crs$target)])$TARGET, crs$pr)
+round(per, 2)
+
+# Calculate the overall error percentage.
+
+cat(100*round(1-sum(diag(per), na.rm=TRUE), 2))
+
+# Calculate the averaged class error percentage.
+
+cat(100*round(mean(per[,"Error"], na.rm=TRUE), 2))
+
+#============================================================
+# Rattle timestamp: 2016-04-21 19:08:03 x86_64-w64-mingw32 
+
+# Decision Tree 
+
+# The 'rpart' package provides the 'rpart' function.
+
+library(rpart, quietly=TRUE)
+
+# Reset the random number seed to obtain the same results each time.
+
+set.seed(crv$seed)
+
+# Build the Decision Tree model.
+
+crs$rpart <- rpart(TARGET ~ .,
+    data=crs$dataset[crs$train, c(crs$input, crs$target)],
+    method="class",
+    parms=list(split="information"),
+      control=rpart.control(minsplit=6,
+           minbucket=1,
+           maxdepth=6,
+           cp=0.005000,
+        usesurrogate=0, 
+        maxsurrogate=0))
+
+# Generate a textual view of the Decision Tree model.
+
+print(crs$rpart)
+printcp(crs$rpart)
+cat("\n")
+
+# Time taken: 3.39 secs
+
+#============================================================
+# Rattle timestamp: 2016-04-21 19:08:56 x86_64-w64-mingw32 
+
+# Decision Tree 
+
+# The 'rpart' package provides the 'rpart' function.
+
+library(rpart, quietly=TRUE)
+
+# Reset the random number seed to obtain the same results each time.
+
+set.seed(crv$seed)
+
+# Build the Decision Tree model.
+
+crs$rpart <- rpart(TARGET ~ .,
+    data=crs$dataset[crs$train, c(crs$input, crs$target)],
+    method="class",
+    parms=list(split="information"),
+      control=rpart.control(minsplit=15,
+           minbucket=1,
+           maxdepth=15,
+           cp=0.005000,
+        usesurrogate=0, 
+        maxsurrogate=0))
+
+# Generate a textual view of the Decision Tree model.
+
+print(crs$rpart)
+printcp(crs$rpart)
+cat("\n")
+
+# Time taken: 4.79 secs
+
+#============================================================
+# Rattle timestamp: 2016-04-21 19:09:30 x86_64-w64-mingw32 
+
+# Decision Tree 
+
+# The 'rpart' package provides the 'rpart' function.
+
+library(rpart, quietly=TRUE)
+
+# Reset the random number seed to obtain the same results each time.
+
+set.seed(crv$seed)
+
+# Build the Decision Tree model.
+
+crs$rpart <- rpart(TARGET ~ .,
+    data=crs$dataset[crs$train, c(crs$input, crs$target)],
+    method="class",
+    parms=list(split="information"),
+      control=rpart.control(minsplit=15,
+           minbucket=4,
+           maxdepth=15,
+           cp=0.005000,
+        usesurrogate=0, 
+        maxsurrogate=0))
+
+# Generate a textual view of the Decision Tree model.
+
+print(crs$rpart)
+printcp(crs$rpart)
+cat("\n")
+
+# Time taken: 4.84 secs
+
+#============================================================
+# Rattle timestamp: 2016-04-21 19:10:10 x86_64-w64-mingw32 
+
+# Decision Tree 
+
+# The 'rpart' package provides the 'rpart' function.
+
+library(rpart, quietly=TRUE)
+
+# Reset the random number seed to obtain the same results each time.
+
+set.seed(crv$seed)
+
+# Build the Decision Tree model.
+
+crs$rpart <- rpart(TARGET ~ .,
+    data=crs$dataset[crs$train, c(crs$input, crs$target)],
+    method="class",
+    parms=list(split="information"),
+      control=rpart.control(minsplit=15,
+           maxdepth=18,
+           cp=0.005000,
+        usesurrogate=0, 
+        maxsurrogate=0))
+
+# Generate a textual view of the Decision Tree model.
+
+print(crs$rpart)
+printcp(crs$rpart)
+cat("\n")
+
+# Time taken: 4.67 secs
+
+#============================================================
+# Rattle timestamp: 2016-04-21 19:11:17 x86_64-w64-mingw32 
+
+# Neural Network 
+
+# Build a neural network model using the nnet package.
+
+library(nnet, quietly=TRUE)
+
+# Build the NNet model.
+
+set.seed(199)
+crs$nnet <- nnet(as.factor(TARGET) ~ .,
+    data=crs$dataset[crs$sample,c(crs$input, crs$target)],
+    size=5, skip=TRUE, MaxNWts=10000, trace=FALSE, maxit=100)
+
+# Print the results of the modelling.
+
+cat(sprintf("A %s network with %d weights.\n",
+    paste(crs$nnet$n, collapse="-"),
+    length(crs$nnet$wts)))
+cat(sprintf("Inputs: %s.\n",
+    paste(crs$nnet$coefnames, collapse=", ")))
+cat(sprintf("Output: %s.\n",
+    names(attr(crs$nnet$terms, "dataClasses"))[1]))
+cat(sprintf("Sum of Squares Residuals: %.4f.\n",
+    sum(residuals(crs$nnet) ^ 2)))
+cat("\n")
+print(summary(crs$nnet))
+cat('\n')
+
+# Time taken: 8.98 secs
+
+#============================================================
+# Rattle timestamp: 2016-04-21 19:12:05 x86_64-w64-mingw32 
+
+# Evaluate model performance. 
+
+# Generate an Error Matrix for the Decision Tree model.
+
+# Obtain the response from the Decision Tree model.
+
+crs$pr <- predict(crs$rpart, newdata=crs$dataset[crs$validate, c(crs$input, crs$target)], type="class")
+
+# Generate the confusion matrix showing counts.
+
+table(crs$dataset[crs$validate, c(crs$input, crs$target)]$TARGET, crs$pr,
+        useNA="ifany",
+        dnn=c("Actual", "Predicted"))
+
+# Generate the confusion matrix showing proportions.
+
+pcme <- function(actual, cl)
+{
+  x <- table(actual, cl)
+  nc <- nrow(x) # Number of classes.
+  nv <- length(actual) - sum(is.na(actual) | is.na(cl)) # Number of values.
+  tbl <- cbind(x/nv,
+               Error=sapply(1:nc,
+                 function(r) round(sum(x[r,-r])/sum(x[r,]), 2)))
+  names(attr(tbl, "dimnames")) <- c("Actual", "Predicted")
+  return(tbl)
+}
+per <- pcme(crs$dataset[crs$validate, c(crs$input, crs$target)]$TARGET, crs$pr)
+round(per, 2)
+
+# Calculate the overall error percentage.
+
+cat(100*round(1-sum(diag(per), na.rm=TRUE), 2))
+
+# Calculate the averaged class error percentage.
+
+cat(100*round(mean(per[,"Error"], na.rm=TRUE), 2))
+
+# Generate an Error Matrix for the SVM model.
+
+# Obtain the response from the SVM model.
+
+crs$pr <- kernlab::predict(crs$ksvm, newdata=na.omit(crs$dataset[crs$validate, c(crs$input, crs$target)]))
+
+# Generate the confusion matrix showing counts.
+
+table(na.omit(crs$dataset[crs$validate, c(crs$input, crs$target)])$TARGET, crs$pr,
+        useNA="ifany",
+        dnn=c("Actual", "Predicted"))
+
+# Generate the confusion matrix showing proportions.
+
+pcme <- function(actual, cl)
+{
+  x <- table(actual, cl)
+  nc <- nrow(x) # Number of classes.
+  nv <- length(actual) - sum(is.na(actual) | is.na(cl)) # Number of values.
+  tbl <- cbind(x/nv,
+               Error=sapply(1:nc,
+                 function(r) round(sum(x[r,-r])/sum(x[r,]), 2)))
+  names(attr(tbl, "dimnames")) <- c("Actual", "Predicted")
+  return(tbl)
+}
+per <- pcme(na.omit(crs$dataset[crs$validate, c(crs$input, crs$target)])$TARGET, crs$pr)
+round(per, 2)
+
+# Calculate the overall error percentage.
+
+cat(100*round(1-sum(diag(per), na.rm=TRUE), 2))
+
+# Calculate the averaged class error percentage.
+
+cat(100*round(mean(per[,"Error"], na.rm=TRUE), 2))
+
+# Generate an Error Matrix for the Neural Net model.
+
+# Obtain the response from the Neural Net model.
+
+crs$pr <- predict(crs$nnet, newdata=crs$dataset[crs$validate, c(crs$input, crs$target)], type="class")
+
+# Generate the confusion matrix showing counts.
+
+table(crs$dataset[crs$validate, c(crs$input, crs$target)]$TARGET, crs$pr,
+        useNA="ifany",
+        dnn=c("Actual", "Predicted"))
+
+# Generate the confusion matrix showing proportions.
+
+pcme <- function(actual, cl)
+{
+  x <- table(actual, cl)
+  nc <- nrow(x) # Number of classes.
+  nv <- length(actual) - sum(is.na(actual) | is.na(cl)) # Number of values.
+  tbl <- cbind(x/nv,
+               Error=sapply(1:nc,
+                 function(r) round(sum(x[r,-r])/sum(x[r,]), 2)))
+  names(attr(tbl, "dimnames")) <- c("Actual", "Predicted")
+  return(tbl)
+}
+per <- pcme(crs$dataset[crs$validate, c(crs$input, crs$target)]$TARGET, crs$pr)
+round(per, 2)
+
+# Calculate the overall error percentage.
+
+cat(100*round(1-sum(diag(per), na.rm=TRUE), 2))
+
+# Calculate the averaged class error percentage.
+
+cat(100*round(mean(per[,"Error"], na.rm=TRUE), 2))
+
+#============================================================
+# Rattle timestamp: 2016-04-21 19:14:28 x86_64-w64-mingw32 
+
+# Evaluate model performance. 
+
+# ROC Curve: requires the ROCR package.
+
+library(ROCR)
+
+# ROC Curve: requires the ggplot2 package.
+
+library(ggplot2, quietly=TRUE)
+
+# Generate an ROC Curve for the rpart model on final.reduced.data [validate].
+
+crs$pr <- predict(crs$rpart, newdata=crs$dataset[crs$validate, c(crs$input, crs$target)])[,2]
+
+# Remove observations with missing target.
+
+no.miss   <- na.omit(crs$dataset[crs$validate, c(crs$input, crs$target)]$TARGET)
+miss.list <- attr(no.miss, "na.action")
+attributes(no.miss) <- NULL
+
+if (length(miss.list))
+{
+  pred <- prediction(crs$pr[-miss.list], no.miss)
+} else
+{
+  pred <- prediction(crs$pr, no.miss)
+}
+
+pe <- performance(pred, "tpr", "fpr")
+au <- performance(pred, "auc")@y.values[[1]]
+pd <- data.frame(fpr=unlist(pe@x.values), tpr=unlist(pe@y.values))
+p <- ggplot(pd, aes(x=fpr, y=tpr))
+p <- p + geom_line(colour="red")
+p <- p + xlab("False Positive Rate") + ylab("True Positive Rate")
+p <- p + ggtitle("ROC Curve Decision Tree final.reduced.data [validate] TARGET")
+p <- p + theme(plot.title=element_text(size=10))
+p <- p + geom_line(data=data.frame(), aes(x=c(0,1), y=c(0,1)), colour="grey")
+p <- p + annotate("text", x=0.50, y=0.00, hjust=0, vjust=0, size=5,
+                   label=paste("AUC =", round(au, 2)))
+print(p)
+
+# Calculate the area under the curve for the plot.
+
+
+# Remove observations with missing target.
+
+no.miss   <- na.omit(crs$dataset[crs$validate, c(crs$input, crs$target)]$TARGET)
+miss.list <- attr(no.miss, "na.action")
+attributes(no.miss) <- NULL
+
+if (length(miss.list))
+{
+  pred <- prediction(crs$pr[-miss.list], no.miss)
+} else
+{
+  pred <- prediction(crs$pr, no.miss)
+}
+performance(pred, "auc")
+
+# ROC Curve: requires the ROCR package.
+
+library(ROCR)
+
+# ROC Curve: requires the ggplot2 package.
+
+library(ggplot2, quietly=TRUE)
+
+# Generate an ROC Curve for the ksvm model on final.reduced.data [validate].
+
+crs$pr <- kernlab::predict(crs$ksvm, newdata=na.omit(crs$dataset[crs$validate, c(crs$input, crs$target)]), type="probabilities")[,2]
+
+# Remove observations with missing target.
+
+no.miss   <- na.omit(na.omit(crs$dataset[crs$validate, c(crs$input, crs$target)])$TARGET)
+miss.list <- attr(no.miss, "na.action")
+attributes(no.miss) <- NULL
+
+if (length(miss.list))
+{
+  pred <- prediction(crs$pr[-miss.list], no.miss)
+} else
+{
+  pred <- prediction(crs$pr, no.miss)
+}
+
+pe <- performance(pred, "tpr", "fpr")
+au <- performance(pred, "auc")@y.values[[1]]
+pd <- data.frame(fpr=unlist(pe@x.values), tpr=unlist(pe@y.values))
+p <- ggplot(pd, aes(x=fpr, y=tpr))
+p <- p + geom_line(colour="red")
+p <- p + xlab("False Positive Rate") + ylab("True Positive Rate")
+p <- p + ggtitle("ROC Curve SVM final.reduced.data [validate] TARGET")
+p <- p + theme(plot.title=element_text(size=10))
+p <- p + geom_line(data=data.frame(), aes(x=c(0,1), y=c(0,1)), colour="grey")
+p <- p + annotate("text", x=0.50, y=0.00, hjust=0, vjust=0, size=5,
+                   label=paste("AUC =", round(au, 2)))
+print(p)
+
+# Calculate the area under the curve for the plot.
+
+
+# Remove observations with missing target.
+
+no.miss   <- na.omit(na.omit(crs$dataset[crs$validate, c(crs$input, crs$target)])$TARGET)
+miss.list <- attr(no.miss, "na.action")
+attributes(no.miss) <- NULL
+
+if (length(miss.list))
+{
+  pred <- prediction(crs$pr[-miss.list], no.miss)
+} else
+{
+  pred <- prediction(crs$pr, no.miss)
+}
+performance(pred, "auc")
+
+# ROC Curve: requires the ROCR package.
+
+library(ROCR)
+
+# ROC Curve: requires the ggplot2 package.
+
+library(ggplot2, quietly=TRUE)
+
+# Generate an ROC Curve for the nnet model on final.reduced.data [validate].
+
+crs$pr <- predict(crs$nnet, newdata=crs$dataset[crs$validate, c(crs$input, crs$target)])
+
+# Remove observations with missing target.
+
+no.miss   <- na.omit(crs$dataset[crs$validate, c(crs$input, crs$target)]$TARGET)
+miss.list <- attr(no.miss, "na.action")
+attributes(no.miss) <- NULL
+
+if (length(miss.list))
+{
+  pred <- prediction(crs$pr[-miss.list], no.miss)
+} else
+{
+  pred <- prediction(crs$pr, no.miss)
+}
+
+pe <- performance(pred, "tpr", "fpr")
+au <- performance(pred, "auc")@y.values[[1]]
+pd <- data.frame(fpr=unlist(pe@x.values), tpr=unlist(pe@y.values))
+p <- ggplot(pd, aes(x=fpr, y=tpr))
+p <- p + geom_line(colour="red")
+p <- p + xlab("False Positive Rate") + ylab("True Positive Rate")
+p <- p + ggtitle("ROC Curve Neural Net final.reduced.data [validate] TARGET")
+p <- p + theme(plot.title=element_text(size=10))
+p <- p + geom_line(data=data.frame(), aes(x=c(0,1), y=c(0,1)), colour="grey")
+p <- p + annotate("text", x=0.50, y=0.00, hjust=0, vjust=0, size=5,
+                   label=paste("AUC =", round(au, 2)))
+print(p)
+
+# Calculate the area under the curve for the plot.
+
+
+# Remove observations with missing target.
+
+no.miss   <- na.omit(crs$dataset[crs$validate, c(crs$input, crs$target)]$TARGET)
+miss.list <- attr(no.miss, "na.action")
+attributes(no.miss) <- NULL
+
+if (length(miss.list))
+{
+  pred <- prediction(crs$pr[-miss.list], no.miss)
+} else
+{
+  pred <- prediction(crs$pr, no.miss)
+}
+performance(pred, "auc")
+
+#============================================================
+# Rattle timestamp: 2016-04-21 19:18:32 x86_64-w64-mingw32 
+
+# Evaluate model performance. 
+
+# Precision/Recall Plot: requires the ROCR package
+
+library(ROCR)
+
+# Generate a Precision/Recall Plot for the rpart model on final.reduced.data [validate].
+
+crs$pr <- predict(crs$rpart, newdata=crs$dataset[crs$validate, c(crs$input, crs$target)])[,2]
+
+# Remove observations with missing target.
+
+no.miss   <- na.omit(crs$dataset[crs$validate, c(crs$input, crs$target)]$TARGET)
+miss.list <- attr(no.miss, "na.action")
+attributes(no.miss) <- NULL
+
+if (length(miss.list))
+{
+  pred <- prediction(crs$pr[-miss.list], no.miss)
+} else
+{
+  pred <- prediction(crs$pr, no.miss)
+}
+ROCR::plot(performance(pred, "prec", "rec"), col="#CC0000FF", lty=1, add=FALSE)
+
+
+# Precision/Recall Plot: requires the ROCR package
+
+library(ROCR)
+
+# Generate a Precision/Recall Plot for the ksvm model on final.reduced.data [validate].
+
+crs$pr <- kernlab::predict(crs$ksvm, newdata=na.omit(crs$dataset[crs$validate, c(crs$input, crs$target)]), type="probabilities")[,2]
+
+# Remove observations with missing target.
+
+no.miss   <- na.omit(na.omit(crs$dataset[crs$validate, c(crs$input, crs$target)])$TARGET)
+miss.list <- attr(no.miss, "na.action")
+attributes(no.miss) <- NULL
+
+if (length(miss.list))
+{
+  pred <- prediction(crs$pr[-miss.list], no.miss)
+} else
+{
+  pred <- prediction(crs$pr, no.miss)
+}
+ROCR::plot(performance(pred, "prec", "rec"), col="#00CC00FF", lty=2, add=TRUE)
+
+
+# Precision/Recall Plot: requires the ROCR package
+
+library(ROCR)
+
+# Generate a Precision/Recall Plot for the nnet model on final.reduced.data [validate].
+
+crs$pr <- predict(crs$nnet, newdata=crs$dataset[crs$validate, c(crs$input, crs$target)])
+
+# Remove observations with missing target.
+
+no.miss   <- na.omit(crs$dataset[crs$validate, c(crs$input, crs$target)]$TARGET)
+miss.list <- attr(no.miss, "na.action")
+attributes(no.miss) <- NULL
+
+if (length(miss.list))
+{
+  pred <- prediction(crs$pr[-miss.list], no.miss)
+} else
+{
+  pred <- prediction(crs$pr, no.miss)
+}
+ROCR::plot(performance(pred, "prec", "rec"), col="#0000CCFF", lty=3, add=TRUE)
+
+
+# Add a legend to the plot.
+
+legend("bottomleft", c("rpart","ksvm","nnet"), col=rainbow(3, 1, .8), lty=1:3, title="Models", inset=c(0.05, 0.05))
+
+# Add decorations to the plot.
+
+title(main="Precision/Recall Plot  final.reduced.data [validate]",
+    sub=paste("Rattle", format(Sys.time(), "%Y-%b-%d %H:%M:%S"), Sys.info()["user"]))
+grid()
+
+#============================================================
+# Rattle timestamp: 2016-04-21 19:23:17 x86_64-w64-mingw32 
+
+# Evaluate model performance. 
+
+# Sensitivity/Specificity Plot: requires the ROCR package
+
+library(ROCR)
+
+# Generate Sensitivity/Specificity Plot for rpart model on final.reduced.data [validate].
+
+crs$pr <- predict(crs$rpart, newdata=crs$dataset[crs$validate, c(crs$input, crs$target)])[,2]
+
+# Remove observations with missing target.
+
+no.miss   <- na.omit(crs$dataset[crs$validate, c(crs$input, crs$target)]$TARGET)
+miss.list <- attr(no.miss, "na.action")
+attributes(no.miss) <- NULL
+
+if (length(miss.list))
+{
+  pred <- prediction(crs$pr[-miss.list], no.miss)
+} else
+{
+  pred <- prediction(crs$pr, no.miss)
+}
+ROCR::plot(performance(pred, "sens", "spec"), col="#CC0000FF", lty=1, add=FALSE)
+
+
+# Sensitivity/Specificity Plot: requires the ROCR package
+
+library(ROCR)
+
+# Generate Sensitivity/Specificity Plot for ksvm model on final.reduced.data [validate].
+
+crs$pr <- kernlab::predict(crs$ksvm, newdata=na.omit(crs$dataset[crs$validate, c(crs$input, crs$target)]), type="probabilities")[,2]
+
+# Remove observations with missing target.
+
+no.miss   <- na.omit(na.omit(crs$dataset[crs$validate, c(crs$input, crs$target)])$TARGET)
+miss.list <- attr(no.miss, "na.action")
+attributes(no.miss) <- NULL
+
+if (length(miss.list))
+{
+  pred <- prediction(crs$pr[-miss.list], no.miss)
+} else
+{
+  pred <- prediction(crs$pr, no.miss)
+}
+ROCR::plot(performance(pred, "sens", "spec"), col="#00CC00FF", lty=2, add=TRUE)
+
+
+# Sensitivity/Specificity Plot: requires the ROCR package
+
+library(ROCR)
+
+# Generate Sensitivity/Specificity Plot for nnet model on final.reduced.data [validate].
+
+crs$pr <- predict(crs$nnet, newdata=crs$dataset[crs$validate, c(crs$input, crs$target)])
+
+# Remove observations with missing target.
+
+no.miss   <- na.omit(crs$dataset[crs$validate, c(crs$input, crs$target)]$TARGET)
+miss.list <- attr(no.miss, "na.action")
+attributes(no.miss) <- NULL
+
+if (length(miss.list))
+{
+  pred <- prediction(crs$pr[-miss.list], no.miss)
+} else
+{
+  pred <- prediction(crs$pr, no.miss)
+}
+ROCR::plot(performance(pred, "sens", "spec"), col="#0000CCFF", lty=3, add=TRUE)
+
+
+# Add a legend to the plot.
+
+legend("bottomleft", c("rpart","ksvm","nnet"), col=rainbow(3, 1, .8), lty=1:3, title="Models", inset=c(0.05, 0.05))
+
+# Add decorations to the plot.
+
+title(main="Sensitivity/Specificity (tpr/tnr)  final.reduced.data [validate]",
+    sub=paste("Rattle", format(Sys.time(), "%Y-%b-%d %H:%M:%S"), Sys.info()["user"]))
+grid()
+
+#============================================================
+# Rattle timestamp: 2016-04-21 19:25:53 x86_64-w64-mingw32 
+
+# Evaluate model performance. 
+
+# ROC Curve: requires the ROCR package.
+
+library(ROCR)
+
+# ROC Curve: requires the ggplot2 package.
+
+library(ggplot2, quietly=TRUE)
+
+# Generate an ROC Curve for the nnet model on final.reduced.data [validate].
+
+crs$pr <- predict(crs$nnet, newdata=crs$dataset[crs$validate, c(crs$input, crs$target)])
+
+# Remove observations with missing target.
+
+no.miss   <- na.omit(crs$dataset[crs$validate, c(crs$input, crs$target)]$TARGET)
+miss.list <- attr(no.miss, "na.action")
+attributes(no.miss) <- NULL
+
+if (length(miss.list))
+{
+  pred <- prediction(crs$pr[-miss.list], no.miss)
+} else
+{
+  pred <- prediction(crs$pr, no.miss)
+}
+
+pe <- performance(pred, "tpr", "fpr")
+au <- performance(pred, "auc")@y.values[[1]]
+pd <- data.frame(fpr=unlist(pe@x.values), tpr=unlist(pe@y.values))
+p <- ggplot(pd, aes(x=fpr, y=tpr))
+p <- p + geom_line(colour="red")
+p <- p + xlab("False Positive Rate") + ylab("True Positive Rate")
+p <- p + ggtitle("ROC Curve Neural Net final.reduced.data [validate] TARGET")
+p <- p + theme(plot.title=element_text(size=10))
+p <- p + geom_line(data=data.frame(), aes(x=c(0,1), y=c(0,1)), colour="grey")
+p <- p + annotate("text", x=0.50, y=0.00, hjust=0, vjust=0, size=5,
+                   label=paste("AUC =", round(au, 2)))
+print(p)
+
+# Calculate the area under the curve for the plot.
+
+
+# Remove observations with missing target.
+
+no.miss   <- na.omit(crs$dataset[crs$validate, c(crs$input, crs$target)]$TARGET)
+miss.list <- attr(no.miss, "na.action")
+attributes(no.miss) <- NULL
+
+if (length(miss.list))
+{
+  pred <- prediction(crs$pr[-miss.list], no.miss)
+} else
+{
+  pred <- prediction(crs$pr, no.miss)
+}
+performance(pred, "auc")
+
+#============================================================
+# Rattle timestamp: 2016-04-21 19:27:25 x86_64-w64-mingw32 
+
+# Evaluate model performance. 
+
+# Precision/Recall Plot: requires the ROCR package
+
+library(ROCR)
+
+# Generate a Precision/Recall Plot for the nnet model on final.reduced.data [validate].
+
+crs$pr <- predict(crs$nnet, newdata=crs$dataset[crs$validate, c(crs$input, crs$target)])
+
+# Remove observations with missing target.
+
+no.miss   <- na.omit(crs$dataset[crs$validate, c(crs$input, crs$target)]$TARGET)
+miss.list <- attr(no.miss, "na.action")
+attributes(no.miss) <- NULL
+
+if (length(miss.list))
+{
+  pred <- prediction(crs$pr[-miss.list], no.miss)
+} else
+{
+  pred <- prediction(crs$pr, no.miss)
+}
+ROCR::plot(performance(pred, "prec", "rec"), col="#CC0000FF", lty=1, add=FALSE)
+
+
+# Add a legend to the plot.
+
+legend("bottomleft", c("nnet"), col=rainbow(1, 1, .8), lty=1:1, title="Models", inset=c(0.05, 0.05))
+
+# Add decorations to the plot.
+
+title(main="Precision/Recall Plot  final.reduced.data [validate]",
+    sub=paste("Rattle", format(Sys.time(), "%Y-%b-%d %H:%M:%S"), Sys.info()["user"]))
+grid()
+
+#============================================================
+# Rattle timestamp: 2016-04-21 19:30:05 x86_64-w64-mingw32 
+
+# Evaluate model performance. 
+
+# Sensitivity/Specificity Plot: requires the ROCR package
+
+library(ROCR)
+
+# Generate Sensitivity/Specificity Plot for nnet model on final.reduced.data [validate].
+
+crs$pr <- predict(crs$nnet, newdata=crs$dataset[crs$validate, c(crs$input, crs$target)])
+
+# Remove observations with missing target.
+
+no.miss   <- na.omit(crs$dataset[crs$validate, c(crs$input, crs$target)]$TARGET)
+miss.list <- attr(no.miss, "na.action")
+attributes(no.miss) <- NULL
+
+if (length(miss.list))
+{
+  pred <- prediction(crs$pr[-miss.list], no.miss)
+} else
+{
+  pred <- prediction(crs$pr, no.miss)
+}
+ROCR::plot(performance(pred, "sens", "spec"), col="#CC0000FF", lty=1, add=FALSE)
+
+
+# Add a legend to the plot.
+
+legend("bottomleft", c("nnet"), col=rainbow(1, 1, .8), lty=1:1, title="Models", inset=c(0.05, 0.05))
+
+# Add decorations to the plot.
+
+title(main="Sensitivity/Specificity (tpr/tnr)  final.reduced.data [validate]",
+    sub=paste("Rattle", format(Sys.time(), "%Y-%b-%d %H:%M:%S"), Sys.info()["user"]))
+grid()
+
+#============================================================
+# Rattle timestamp: 2016-04-21 19:31:05 x86_64-w64-mingw32 
+
+# Evaluate model performance. 
+
+# NNET: Generate a Predicted v Observed plot for nnet model on final.reduced.data [validate].
+
+crs$pr <- predict(crs$nnet, newdata=crs$dataset[crs$validate, c(crs$input, crs$target)])
+
+# Obtain the observed output for the dataset.
+
+obs <- subset(crs$dataset[crs$validate, c(crs$input, crs$target)], select=crs$target)
+
+# Handle in case categoric target treated as numeric.
+
+obs.rownames <- rownames(obs)
+obs <- as.numeric(obs[[1]])
+obs <- data.frame(TARGET=obs)
+rownames(obs) <- obs.rownames
+
+# Combine the observed values with the predicted.
+
+fitpoints <- na.omit(cbind(obs, Predicted=crs$pr))
+
+# Obtain the pseudo R2 - a correlation.
+
+fitcorr <- format(cor(fitpoints[,1], fitpoints[,2])^2, digits=4)
+
+# Plot settings for the true points and best fit.
+
+op <- par(c(lty="solid", col="blue"))
+
+# Display the observed (X) versus predicted (Y) points.
+
+plot(jitter(fitpoints[[1]]), fitpoints[[2]], asp=1, xlab="TARGET (Jittered)", ylab="Predicted")
+
+# Generate a simple linear fit between predicted and observed.
+
+prline <- lm(fitpoints[,2] ~ fitpoints[,1])
+
+# Add the linear fit to the plot.
+
+abline(prline)
+
+# Add a diagonal representing perfect correlation.
+
+par(c(lty="dashed", col="black"))
+abline(0, 1)
+
+# Include a pseudo R-square on the plot
+
+legend("bottomright",  sprintf(" Pseudo R-square=%s ", fitcorr),  bty="n")
+
+# Add a title and grid to the plot.
+
+title(main="Predicted vs. Observed
+ Neural Net Model
+ final.reduced.data [validate]",
+    sub=paste("Rattle", format(Sys.time(), "%Y-%b-%d %H:%M:%S"), Sys.info()["user"]))
+grid()
+
+#============================================================
+# Rattle timestamp: 2016-04-21 19:32:10 x86_64-w64-mingw32 
+
+# Evaluate model performance. 
+
+# Cost Curve: requires the ROCR package.
+
+library(ROCR)
+
+# Generate a Cost Curve for the Neural Net model on final.reduced.data [validate].
+
+crs$pr <- predict(crs$nnet, newdata=crs$dataset[crs$validate, c(crs$input, crs$target)])
+plot(0, 0, xlim=c(0, 1), ylim=c(0, 1), xlab="Probability cost function", ylab="Normalized expected cost")
+lines(c(0,1),c(0,1))
+lines(c(0,1),c(1,0))
+
+# Remove observations with missing target.
+
+no.miss   <- na.omit(crs$dataset[crs$validate, c(crs$input, crs$target)]$TARGET)
+miss.list <- attr(no.miss, "na.action")
+attributes(no.miss) <- NULL
+
+if (length(miss.list))
+{
+  pred <- prediction(crs$pr[-miss.list], no.miss)
+} else
+{
+  pred <- prediction(crs$pr, no.miss)
+}
+perf1 <- performance(pred, "fpr", "fnr")
+for (i in seq_along(perf1@x.values))
+{
+	for (j in seq_along(perf1@x.values[[i]]))
+	{
+		lines(c(0,1),c(perf1@y.values[[i]][j],
+				perf1@x.values[[i]][j]),
+				col=terrain.colors(10)[i],lty=3)
+	}
+}
+perf<-performance(pred, "ecost")
+
+# Bug in ROCR 1.0-3 does not obey the add command.
+# Calling the function directly does work.
+
+.plot.performance(perf, lwd=1.5, xlim=c(0,1), ylim=c(0,1), add=T)
+op <- par(xpd=TRUE)
+text(0, 1.07, "FPR")
+text(1, 1.07, "FNR")
+par(op)
+text(0.12, 1, "Predict +ve")
+text(0.88, 1, "Predict -ve")
+title(main="Cost Curve Neural Net final.reduced.data [validate]",
+    sub=paste("Rattle", format(Sys.time(), "%Y-%b-%d %H:%M:%S"), Sys.info()["user"]))
+
+#============================================================
+# Rattle timestamp: 2016-04-21 19:34:58 x86_64-w64-mingw32 
+
+# Regression model 
+
+# Build a Regression model.
+
+crs$glm <- glm(TARGET ~ .,
+    data=crs$dataset[crs$train, c(crs$input, crs$target)],
+    family=binomial(link="logit"))
+
+# Generate a textual view of the Linear model.
+
+print(summary(crs$glm))
+cat(sprintf("Log likelihood: %.3f (%d df)\n",
+            logLik(crs$glm)[1],
+            attr(logLik(crs$glm), "df")))
+cat(sprintf("Null/Residual deviance difference: %.3f (%d df)\n",
+            crs$glm$null.deviance-crs$glm$deviance,
+            crs$glm$df.null-crs$glm$df.residual))
+cat(sprintf("Chi-square p-value: %.8f\n",
+            dchisq(crs$glm$null.deviance-crs$glm$deviance,
+                   crs$glm$df.null-crs$glm$df.residual)))
+cat(sprintf("Pseudo R-Square (optimistic): %.8f\n",
+             cor(crs$glm$y, crs$glm$fitted.values)))
+cat('\n==== ANOVA ====\n\n')
+print(anova(crs$glm, test="Chisq"))
+cat("\n")
+
+# Time taken: 16.56 hours
+
+#============================================================
+# Rattle timestamp: 2016-04-22 13:55:46 x86_64-w64-mingw32 
+
+# Evaluate model performance. 
+
+# Generate an Error Matrix for the Linear model.
+
+# Obtain the response from the Linear model.
+
+crs$pr <- as.vector(ifelse(predict(crs$glm, type="response", newdata=crs$dataset[crs$validate, c(crs$input, crs$target)]) > 0.5, "1", "0"))
+
+# Generate the confusion matrix showing counts.
+
+table(crs$dataset[crs$validate, c(crs$input, crs$target)]$TARGET, crs$pr,
+        useNA="ifany",
+        dnn=c("Actual", "Predicted"))
+
+# Generate the confusion matrix showing proportions.
+
+pcme <- function(actual, cl)
+{
+  x <- table(actual, cl)
+  nc <- nrow(x) # Number of classes.
+  nv <- length(actual) - sum(is.na(actual) | is.na(cl)) # Number of values.
+  tbl <- cbind(x/nv,
+               Error=sapply(1:nc,
+                 function(r) round(sum(x[r,-r])/sum(x[r,]), 2)))
+  names(attr(tbl, "dimnames")) <- c("Actual", "Predicted")
+  return(tbl)
+}
+per <- pcme(crs$dataset[crs$validate, c(crs$input, crs$target)]$TARGET, crs$pr)
+round(per, 2)
+
+# Calculate the overall error percentage.
+
+cat(100*round(1-sum(diag(per), na.rm=TRUE), 2))
+
+# Calculate the averaged class error percentage.
+
+cat(100*round(mean(per[,"Error"], na.rm=TRUE), 2))
+
+#============================================================
+# Rattle timestamp: 2016-04-22 13:56:13 x86_64-w64-mingw32 
+
+# Evaluate model performance. 
+
+# Generate an Error Matrix for the Linear model.
+
+# Obtain the response from the Linear model.
+
+crs$pr <- as.vector(ifelse(predict(crs$glm, type="response", newdata=crs$dataset[crs$validate, c(crs$input, crs$target)]) > 0.5, "1", "0"))
+
+# Generate the confusion matrix showing counts.
+
+table(crs$dataset[crs$validate, c(crs$input, crs$target)]$TARGET, crs$pr,
+        useNA="ifany",
+        dnn=c("Actual", "Predicted"))
+
+# Generate the confusion matrix showing proportions.
+
+pcme <- function(actual, cl)
+{
+  x <- table(actual, cl)
+  nc <- nrow(x) # Number of classes.
+  nv <- length(actual) - sum(is.na(actual) | is.na(cl)) # Number of values.
+  tbl <- cbind(x/nv,
+               Error=sapply(1:nc,
+                 function(r) round(sum(x[r,-r])/sum(x[r,]), 2)))
+  names(attr(tbl, "dimnames")) <- c("Actual", "Predicted")
+  return(tbl)
+}
+per <- pcme(crs$dataset[crs$validate, c(crs$input, crs$target)]$TARGET, crs$pr)
+round(per, 2)
+
+# Calculate the overall error percentage.
+
+cat(100*round(1-sum(diag(per), na.rm=TRUE), 2))
+
+# Calculate the averaged class error percentage.
+
+cat(100*round(mean(per[,"Error"], na.rm=TRUE), 2))
+
+#============================================================
+# Rattle timestamp: 2016-04-22 14:10:00 x86_64-w64-mingw32 
+
+# Evaluate model performance. 
+
+# ROC Curve: requires the ROCR package.
+
+library(ROCR)
+
+# ROC Curve: requires the ggplot2 package.
+
+library(ggplot2, quietly=TRUE)
+
+# Generate an ROC Curve for the ksvm model on final.reduced.data [validate].
+
+crs$pr <- kernlab::predict(crs$ksvm, newdata=na.omit(crs$dataset[crs$validate, c(crs$input, crs$target)]), type="probabilities")[,2]
+
+# Remove observations with missing target.
+
+no.miss   <- na.omit(na.omit(crs$dataset[crs$validate, c(crs$input, crs$target)])$TARGET)
+miss.list <- attr(no.miss, "na.action")
+attributes(no.miss) <- NULL
+
+if (length(miss.list))
+{
+  pred <- prediction(crs$pr[-miss.list], no.miss)
+} else
+{
+  pred <- prediction(crs$pr, no.miss)
+}
+
+pe <- performance(pred, "tpr", "fpr")
+au <- performance(pred, "auc")@y.values[[1]]
+pd <- data.frame(fpr=unlist(pe@x.values), tpr=unlist(pe@y.values))
+p <- ggplot(pd, aes(x=fpr, y=tpr))
+p <- p + geom_line(colour="red")
+p <- p + xlab("False Positive Rate") + ylab("True Positive Rate")
+p <- p + ggtitle("ROC Curve SVM final.reduced.data [validate] TARGET")
+p <- p + theme(plot.title=element_text(size=10))
+p <- p + geom_line(data=data.frame(), aes(x=c(0,1), y=c(0,1)), colour="grey")
+p <- p + annotate("text", x=0.50, y=0.00, hjust=0, vjust=0, size=5,
+                   label=paste("AUC =", round(au, 2)))
+print(p)
+
+# Calculate the area under the curve for the plot.
+
+
+# Remove observations with missing target.
+
+no.miss   <- na.omit(na.omit(crs$dataset[crs$validate, c(crs$input, crs$target)])$TARGET)
+miss.list <- attr(no.miss, "na.action")
+attributes(no.miss) <- NULL
+
+if (length(miss.list))
+{
+  pred <- prediction(crs$pr[-miss.list], no.miss)
+} else
+{
+  pred <- prediction(crs$pr, no.miss)
+}
+performance(pred, "auc")
+
+# ROC Curve: requires the ROCR package.
+
+library(ROCR)
+
+# ROC Curve: requires the ggplot2 package.
+
+library(ggplot2, quietly=TRUE)
+
+# Generate an ROC Curve for the glm model on final.reduced.data [validate].
+
+crs$pr <- predict(crs$glm, type="response", newdata=crs$dataset[crs$validate, c(crs$input, crs$target)])
+
+# Remove observations with missing target.
+
+no.miss   <- na.omit(crs$dataset[crs$validate, c(crs$input, crs$target)]$TARGET)
+miss.list <- attr(no.miss, "na.action")
+attributes(no.miss) <- NULL
+
+if (length(miss.list))
+{
+  pred <- prediction(crs$pr[-miss.list], no.miss)
+} else
+{
+  pred <- prediction(crs$pr, no.miss)
+}
+
+pe <- performance(pred, "tpr", "fpr")
+au <- performance(pred, "auc")@y.values[[1]]
+pd <- data.frame(fpr=unlist(pe@x.values), tpr=unlist(pe@y.values))
+p <- ggplot(pd, aes(x=fpr, y=tpr))
+p <- p + geom_line(colour="red")
+p <- p + xlab("False Positive Rate") + ylab("True Positive Rate")
+p <- p + ggtitle("ROC Curve Linear final.reduced.data [validate] TARGET")
+p <- p + theme(plot.title=element_text(size=10))
+p <- p + geom_line(data=data.frame(), aes(x=c(0,1), y=c(0,1)), colour="grey")
+p <- p + annotate("text", x=0.50, y=0.00, hjust=0, vjust=0, size=5,
+                   label=paste("AUC =", round(au, 2)))
+print(p)
+
+# Calculate the area under the curve for the plot.
+
+
+# Remove observations with missing target.
+
+no.miss   <- na.omit(crs$dataset[crs$validate, c(crs$input, crs$target)]$TARGET)
+miss.list <- attr(no.miss, "na.action")
+attributes(no.miss) <- NULL
+
+if (length(miss.list))
+{
+  pred <- prediction(crs$pr[-miss.list], no.miss)
+} else
+{
+  pred <- prediction(crs$pr, no.miss)
+}
+performance(pred, "auc")
+
+# ROC Curve: requires the ROCR package.
+
+library(ROCR)
+
+# ROC Curve: requires the ggplot2 package.
+
+library(ggplot2, quietly=TRUE)
+
+# Generate an ROC Curve for the nnet model on final.reduced.data [validate].
+
+crs$pr <- predict(crs$nnet, newdata=crs$dataset[crs$validate, c(crs$input, crs$target)])
+
+# Remove observations with missing target.
+
+no.miss   <- na.omit(crs$dataset[crs$validate, c(crs$input, crs$target)]$TARGET)
+miss.list <- attr(no.miss, "na.action")
+attributes(no.miss) <- NULL
+
+if (length(miss.list))
+{
+  pred <- prediction(crs$pr[-miss.list], no.miss)
+} else
+{
+  pred <- prediction(crs$pr, no.miss)
+}
+
+pe <- performance(pred, "tpr", "fpr")
+au <- performance(pred, "auc")@y.values[[1]]
+pd <- data.frame(fpr=unlist(pe@x.values), tpr=unlist(pe@y.values))
+p <- ggplot(pd, aes(x=fpr, y=tpr))
+p <- p + geom_line(colour="red")
+p <- p + xlab("False Positive Rate") + ylab("True Positive Rate")
+p <- p + ggtitle("ROC Curve Neural Net final.reduced.data [validate] TARGET")
+p <- p + theme(plot.title=element_text(size=10))
+p <- p + geom_line(data=data.frame(), aes(x=c(0,1), y=c(0,1)), colour="grey")
+p <- p + annotate("text", x=0.50, y=0.00, hjust=0, vjust=0, size=5,
+                   label=paste("AUC =", round(au, 2)))
+print(p)
+
+# Calculate the area under the curve for the plot.
+
+
+# Remove observations with missing target.
+
+no.miss   <- na.omit(crs$dataset[crs$validate, c(crs$input, crs$target)]$TARGET)
+miss.list <- attr(no.miss, "na.action")
+attributes(no.miss) <- NULL
+
+if (length(miss.list))
+{
+  pred <- prediction(crs$pr[-miss.list], no.miss)
+} else
+{
+  pred <- prediction(crs$pr, no.miss)
+}
+performance(pred, "auc")
+
+#============================================================
+# Rattle timestamp: 2016-04-22 14:13:17 x86_64-w64-mingw32 
+
+# Evaluate model performance. 
+
+# Precision/Recall Plot: requires the ROCR package
+
+library(ROCR)
+
+# Generate a Precision/Recall Plot for the ksvm model on final.reduced.data [validate].
+
+crs$pr <- kernlab::predict(crs$ksvm, newdata=na.omit(crs$dataset[crs$validate, c(crs$input, crs$target)]), type="probabilities")[,2]
+
+# Remove observations with missing target.
+
+no.miss   <- na.omit(na.omit(crs$dataset[crs$validate, c(crs$input, crs$target)])$TARGET)
+miss.list <- attr(no.miss, "na.action")
+attributes(no.miss) <- NULL
+
+if (length(miss.list))
+{
+  pred <- prediction(crs$pr[-miss.list], no.miss)
+} else
+{
+  pred <- prediction(crs$pr, no.miss)
+}
+ROCR::plot(performance(pred, "prec", "rec"), col="#CC0000FF", lty=1, add=FALSE)
+
+
+# Precision/Recall Plot: requires the ROCR package
+
+library(ROCR)
+
+# Generate a Precision/Recall Plot for the glm model on final.reduced.data [validate].
+
+crs$pr <- predict(crs$glm, type="response", newdata=crs$dataset[crs$validate, c(crs$input, crs$target)])
+
+# Remove observations with missing target.
+
+no.miss   <- na.omit(crs$dataset[crs$validate, c(crs$input, crs$target)]$TARGET)
+miss.list <- attr(no.miss, "na.action")
+attributes(no.miss) <- NULL
+
+if (length(miss.list))
+{
+  pred <- prediction(crs$pr[-miss.list], no.miss)
+} else
+{
+  pred <- prediction(crs$pr, no.miss)
+}
+ROCR::plot(performance(pred, "prec", "rec"), col="#00CC00FF", lty=2, add=TRUE)
+
+
+# Precision/Recall Plot: requires the ROCR package
+
+library(ROCR)
+
+# Generate a Precision/Recall Plot for the nnet model on final.reduced.data [validate].
+
+crs$pr <- predict(crs$nnet, newdata=crs$dataset[crs$validate, c(crs$input, crs$target)])
+
+# Remove observations with missing target.
+
+no.miss   <- na.omit(crs$dataset[crs$validate, c(crs$input, crs$target)]$TARGET)
+miss.list <- attr(no.miss, "na.action")
+attributes(no.miss) <- NULL
+
+if (length(miss.list))
+{
+  pred <- prediction(crs$pr[-miss.list], no.miss)
+} else
+{
+  pred <- prediction(crs$pr, no.miss)
+}
+ROCR::plot(performance(pred, "prec", "rec"), col="#0000CCFF", lty=3, add=TRUE)
+
+
+# Add a legend to the plot.
+
+legend("bottomleft", c("ksvm","glm","nnet"), col=rainbow(3, 1, .8), lty=1:3, title="Models", inset=c(0.05, 0.05))
+
+# Add decorations to the plot.
+
+title(main="Precision/Recall Plot  final.reduced.data [validate]",
+    sub=paste("Rattle", format(Sys.time(), "%Y-%b-%d %H:%M:%S"), Sys.info()["user"]))
+grid()
+
+#============================================================
+# Rattle timestamp: 2016-04-22 14:15:57 x86_64-w64-mingw32 
+
+# Evaluate model performance. 
+
+# Sensitivity/Specificity Plot: requires the ROCR package
+
+library(ROCR)
+
+# Generate Sensitivity/Specificity Plot for ksvm model on final.reduced.data [validate].
+
+crs$pr <- kernlab::predict(crs$ksvm, newdata=na.omit(crs$dataset[crs$validate, c(crs$input, crs$target)]), type="probabilities")[,2]
+
+# Remove observations with missing target.
+
+no.miss   <- na.omit(na.omit(crs$dataset[crs$validate, c(crs$input, crs$target)])$TARGET)
+miss.list <- attr(no.miss, "na.action")
+attributes(no.miss) <- NULL
+
+if (length(miss.list))
+{
+  pred <- prediction(crs$pr[-miss.list], no.miss)
+} else
+{
+  pred <- prediction(crs$pr, no.miss)
+}
+ROCR::plot(performance(pred, "sens", "spec"), col="#CC0000FF", lty=1, add=FALSE)
+
+
+# Sensitivity/Specificity Plot: requires the ROCR package
+
+library(ROCR)
+
+# Generate Sensitivity/Specificity Plot for glm model on final.reduced.data [validate].
+
+crs$pr <- predict(crs$glm, type="response", newdata=crs$dataset[crs$validate, c(crs$input, crs$target)])
+
+# Remove observations with missing target.
+
+no.miss   <- na.omit(crs$dataset[crs$validate, c(crs$input, crs$target)]$TARGET)
+miss.list <- attr(no.miss, "na.action")
+attributes(no.miss) <- NULL
+
+if (length(miss.list))
+{
+  pred <- prediction(crs$pr[-miss.list], no.miss)
+} else
+{
+  pred <- prediction(crs$pr, no.miss)
+}
+ROCR::plot(performance(pred, "sens", "spec"), col="#00CC00FF", lty=2, add=TRUE)
+
+
+# Sensitivity/Specificity Plot: requires the ROCR package
+
+library(ROCR)
+
+# Generate Sensitivity/Specificity Plot for nnet model on final.reduced.data [validate].
+
+crs$pr <- predict(crs$nnet, newdata=crs$dataset[crs$validate, c(crs$input, crs$target)])
+
+# Remove observations with missing target.
+
+no.miss   <- na.omit(crs$dataset[crs$validate, c(crs$input, crs$target)]$TARGET)
+miss.list <- attr(no.miss, "na.action")
+attributes(no.miss) <- NULL
+
+if (length(miss.list))
+{
+  pred <- prediction(crs$pr[-miss.list], no.miss)
+} else
+{
+  pred <- prediction(crs$pr, no.miss)
+}
+ROCR::plot(performance(pred, "sens", "spec"), col="#0000CCFF", lty=3, add=TRUE)
+
+
+# Add a legend to the plot.
+
+legend("bottomleft", c("ksvm","glm","nnet"), col=rainbow(3, 1, .8), lty=1:3, title="Models", inset=c(0.05, 0.05))
+
+# Add decorations to the plot.
+
+title(main="Sensitivity/Specificity (tpr/tnr)  final.reduced.data [validate]",
+    sub=paste("Rattle", format(Sys.time(), "%Y-%b-%d %H:%M:%S"), Sys.info()["user"]))
+grid()
+
+#============================================================
+# Rattle timestamp: 2016-04-22 14:18:05 x86_64-w64-mingw32 
+
+# Evaluate model performance. 
+
+# KSVM: Generate a Predicted v Observed plot for ksvm model on final.reduced.data [validate].
+
+crs$pr <- kernlab::predict(crs$ksvm, newdata=na.omit(crs$dataset[crs$validate, c(crs$input, crs$target)]), type="probabilities")[,2]
+
+# Obtain the observed output for the dataset.
+
+obs <- subset(na.omit(crs$dataset[crs$validate, c(crs$input, crs$target)]), select=crs$target)
+
+# Handle in case categoric target treated as numeric.
+
+obs.rownames <- rownames(obs)
+obs <- as.numeric(obs[[1]])
+obs <- data.frame(TARGET=obs)
+rownames(obs) <- obs.rownames
+
+# Combine the observed values with the predicted.
+
+fitpoints <- na.omit(cbind(obs, Predicted=crs$pr))
+
+# Obtain the pseudo R2 - a correlation.
+
+fitcorr <- format(cor(fitpoints[,1], fitpoints[,2])^2, digits=4)
+
+# Plot settings for the true points and best fit.
+
+op <- par(c(lty="solid", col="blue"))
+
+# Display the observed (X) versus predicted (Y) points.
+
+plot(jitter(fitpoints[[1]]), fitpoints[[2]], asp=1, xlab="TARGET (Jittered)", ylab="Predicted")
+
+# Generate a simple linear fit between predicted and observed.
+
+prline <- lm(fitpoints[,2] ~ fitpoints[,1])
+
+# Add the linear fit to the plot.
+
+abline(prline)
+
+# Add a diagonal representing perfect correlation.
+
+par(c(lty="dashed", col="black"))
+abline(0, 1)
+
+# Include a pseudo R-square on the plot
+
+legend("bottomright",  sprintf(" Pseudo R-square=%s ", fitcorr),  bty="n")
+
+# Add a title and grid to the plot.
+
+title(main="Predicted vs. Observed
+ SVM Model
+ final.reduced.data [validate]",
+    sub=paste("Rattle", format(Sys.time(), "%Y-%b-%d %H:%M:%S"), Sys.info()["user"]))
+grid()
+
+# GLM: Generate a Predicted v Observed plot for glm model on final.reduced.data [validate].
+
+crs$pr <- predict(crs$glm, type="response", newdata=crs$dataset[crs$validate, c(crs$input, crs$target)])
+
+# Obtain the observed output for the dataset.
+
+obs <- subset(crs$dataset[crs$validate, c(crs$input, crs$target)], select=crs$target)
+
+# Handle in case categoric target treated as numeric.
+
+obs.rownames <- rownames(obs)
+obs <- as.numeric(obs[[1]])
+obs <- data.frame(TARGET=obs)
+rownames(obs) <- obs.rownames
+
+# Combine the observed values with the predicted.
+
+fitpoints <- na.omit(cbind(obs, Predicted=crs$pr))
+
+# Obtain the pseudo R2 - a correlation.
+
+fitcorr <- format(cor(fitpoints[,1], fitpoints[,2])^2, digits=4)
+
+# Plot settings for the true points and best fit.
+
+op <- par(c(lty="solid", col="blue"))
+
+# Display the observed (X) versus predicted (Y) points.
+
+plot(jitter(fitpoints[[1]]), fitpoints[[2]], asp=1, xlab="TARGET (Jittered)", ylab="Predicted")
+
+# Generate a simple linear fit between predicted and observed.
+
+prline <- lm(fitpoints[,2] ~ fitpoints[,1])
+
+# Add the linear fit to the plot.
+
+abline(prline)
+
+# Add a diagonal representing perfect correlation.
+
+par(c(lty="dashed", col="black"))
+abline(0, 1)
+
+# Include a pseudo R-square on the plot
+
+legend("bottomright",  sprintf(" Pseudo R-square=%s ", fitcorr),  bty="n")
+
+# Add a title and grid to the plot.
+
+title(main="Predicted vs. Observed
+ Linear Model
+ final.reduced.data [validate]",
+    sub=paste("Rattle", format(Sys.time(), "%Y-%b-%d %H:%M:%S"), Sys.info()["user"]))
+grid()
+
+# NNET: Generate a Predicted v Observed plot for nnet model on final.reduced.data [validate].
+
+crs$pr <- predict(crs$nnet, newdata=crs$dataset[crs$validate, c(crs$input, crs$target)])
+
+# Obtain the observed output for the dataset.
+
+obs <- subset(crs$dataset[crs$validate, c(crs$input, crs$target)], select=crs$target)
+
+# Handle in case categoric target treated as numeric.
+
+obs.rownames <- rownames(obs)
+obs <- as.numeric(obs[[1]])
+obs <- data.frame(TARGET=obs)
+rownames(obs) <- obs.rownames
+
+# Combine the observed values with the predicted.
+
+fitpoints <- na.omit(cbind(obs, Predicted=crs$pr))
+
+# Obtain the pseudo R2 - a correlation.
+
+fitcorr <- format(cor(fitpoints[,1], fitpoints[,2])^2, digits=4)
+
+# Plot settings for the true points and best fit.
+
+op <- par(c(lty="solid", col="blue"))
+
+# Display the observed (X) versus predicted (Y) points.
+
+plot(jitter(fitpoints[[1]]), fitpoints[[2]], asp=1, xlab="TARGET (Jittered)", ylab="Predicted")
+
+# Generate a simple linear fit between predicted and observed.
+
+prline <- lm(fitpoints[,2] ~ fitpoints[,1])
+
+# Add the linear fit to the plot.
+
+abline(prline)
+
+# Add a diagonal representing perfect correlation.
+
+par(c(lty="dashed", col="black"))
+abline(0, 1)
+
+# Include a pseudo R-square on the plot
+
+legend("bottomright",  sprintf(" Pseudo R-square=%s ", fitcorr),  bty="n")
+
+# Add a title and grid to the plot.
+
+title(main="Predicted vs. Observed
+ Neural Net Model
+ final.reduced.data [validate]",
+    sub=paste("Rattle", format(Sys.time(), "%Y-%b-%d %H:%M:%S"), Sys.info()["user"]))
+grid()

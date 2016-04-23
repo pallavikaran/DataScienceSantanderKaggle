@@ -1,0 +1,800 @@
+Below we summarise the dataset.
+
+The data is limited to the training dataset.
+
+
+Data frame:crs$dataset[crs$sample, c(crs$input, crs$risk, crs$target)]	53214 observations and 302 variables    Maximum # NAs:0
+
+
+                              Storage
+var3                          integer
+var15                         integer
+imp_ent_var16_ult1             double
+imp_op_var39_comer_ult1        double
+imp_op_var39_comer_ult3        double
+imp_op_var40_comer_ult1        double
+imp_op_var40_comer_ult3        double
+imp_op_var40_efect_ult1        double
+imp_op_var40_efect_ult3        double
+imp_op_var40_ult1              double
+imp_op_var41_comer_ult1        double
+imp_op_var41_comer_ult3        double
+imp_op_var41_efect_ult1        double
+imp_op_var41_efect_ult3        double
+imp_op_var41_ult1              double
+imp_op_var39_efect_ult1        double
+imp_op_var39_efect_ult3        double
+imp_op_var39_ult1              double
+imp_sal_var16_ult1             double
+ind_var1_0                    integer
+ind_var1                      integer
+ind_var5_0                    integer
+ind_var5                      integer
+ind_var6_0                    integer
+ind_var8_0                    integer
+ind_var8                      integer
+ind_var12_0                   integer
+ind_var12                     integer
+ind_var13_0                   integer
+ind_var13_corto_0             integer
+ind_var13_corto               integer
+ind_var13_largo_0             integer
+ind_var13_largo               integer
+ind_var13                     integer
+ind_var14_0                   integer
+ind_var14                     integer
+ind_var17_0                   integer
+ind_var17                     integer
+ind_var19                     integer
+ind_var20_0                   integer
+ind_var20                     integer
+ind_var24_0                   integer
+ind_var24                     integer
+ind_var25_cte                 integer
+ind_var26_0                   integer
+ind_var26_cte                 integer
+ind_var26                     integer
+ind_var25_0                   integer
+ind_var25                     integer
+ind_var29_0                   integer
+ind_var30_0                   integer
+ind_var30                     integer
+ind_var31_0                   integer
+ind_var31                     integer
+ind_var32_cte                 integer
+ind_var32_0                   integer
+ind_var32                     integer
+ind_var33_0                   integer
+ind_var33                     integer
+ind_var34_0                   integer
+ind_var37_cte                 integer
+ind_var37_0                   integer
+ind_var37                     integer
+ind_var39_0                   integer
+ind_var40_0                   integer
+ind_var40                     integer
+ind_var41_0                   integer
+ind_var39                     integer
+ind_var44_0                   integer
+ind_var44                     integer
+num_var1_0                    integer
+num_var1                      integer
+num_var4                      integer
+num_var5_0                    integer
+num_var5                      integer
+num_var6_0                    integer
+num_var8_0                    integer
+num_var8                      integer
+num_var12_0                   integer
+num_var12                     integer
+num_var13_0                   integer
+num_var13_corto_0             integer
+num_var13_corto               integer
+num_var13_largo_0             integer
+num_var13_largo               integer
+num_var13                     integer
+num_var14_0                   integer
+num_var14                     integer
+num_var17_0                   integer
+num_var17                     integer
+num_var18                     integer
+num_var20_0                   integer
+num_var20                     integer
+num_var24_0                   integer
+num_var24                     integer
+num_var26_0                   integer
+num_var26                     integer
+num_var25_0                   integer
+num_var25                     integer
+num_op_var40_hace2            integer
+num_op_var40_hace3            integer
+num_op_var40_ult1             integer
+num_op_var40_ult3             integer
+num_op_var41_hace2            integer
+num_op_var41_hace3            integer
+num_op_var41_ult1             integer
+num_op_var41_ult3             integer
+num_op_var39_hace2            integer
+num_op_var39_hace3            integer
+num_op_var39_ult1             integer
+num_op_var39_ult3             integer
+num_var29_0                   integer
+num_var30_0                   integer
+num_var30                     integer
+num_var31_0                   integer
+num_var31                     integer
+num_var32_0                   integer
+num_var32                     integer
+num_var33_0                   integer
+num_var33                     integer
+num_var35                     integer
+num_var37_med_ult2            integer
+num_var37_0                   integer
+num_var37                     integer
+num_var39_0                   integer
+num_var40_0                   integer
+num_var40                     integer
+num_var41_0                   integer
+num_var39                     integer
+num_var42_0                   integer
+num_var42                     integer
+num_var44_0                   integer
+num_var44                     integer
+saldo_var1                     double
+saldo_var5                     double
+saldo_var6                     double
+saldo_var8                     double
+saldo_var12                    double
+saldo_var13_corto              double
+saldo_var13_largo              double
+saldo_var13_medio             integer
+saldo_var13                    double
+saldo_var14                    double
+saldo_var17                    double
+saldo_var18                   integer
+saldo_var20                    double
+saldo_var24                    double
+saldo_var26                    double
+saldo_var25                    double
+saldo_var29                    double
+saldo_var30                    double
+saldo_var31                    double
+saldo_var32                    double
+saldo_var33                    double
+saldo_var34                   integer
+saldo_var37                    double
+saldo_var40                    double
+saldo_var42                    double
+saldo_var44                    double
+var36                         integer
+delta_imp_aport_var13_1y3      double
+delta_imp_aport_var17_1y3      double
+delta_imp_compra_var44_1y3     double
+delta_imp_reemb_var13_1y3      double
+delta_imp_reemb_var17_1y3      double
+delta_imp_trasp_var17_in_1y3   double
+delta_imp_trasp_var17_out_1y3  double
+delta_imp_trasp_var33_in_1y3   double
+delta_imp_venta_var44_1y3      double
+delta_num_aport_var13_1y3      double
+delta_num_aport_var17_1y3      double
+delta_num_compra_var44_1y3     double
+delta_num_reemb_var13_1y3      double
+delta_num_reemb_var17_1y3      double
+delta_num_trasp_var17_in_1y3   double
+delta_num_trasp_var17_out_1y3  double
+delta_num_trasp_var33_in_1y3   double
+delta_num_venta_var44_1y3      double
+imp_amort_var18_ult1           double
+imp_amort_var34_ult1           double
+imp_aport_var13_hace3          double
+imp_aport_var13_ult1           double
+imp_aport_var17_hace3          double
+imp_aport_var17_ult1           double
+imp_aport_var33_hace3         integer
+imp_aport_var33_ult1          integer
+imp_var7_emit_ult1             double
+imp_var7_recib_ult1            double
+imp_compra_var44_hace3         double
+imp_compra_var44_ult1          double
+imp_reemb_var13_ult1           double
+imp_reemb_var17_ult1           double
+imp_var43_emit_ult1            double
+imp_trans_var37_ult1           double
+imp_trasp_var17_in_hace3       double
+imp_trasp_var17_in_ult1        double
+imp_trasp_var17_out_ult1       double
+imp_trasp_var33_in_hace3       double
+imp_trasp_var33_in_ult1        double
+imp_venta_var44_hace3          double
+imp_venta_var44_ult1           double
+ind_var7_emit_ult1            integer
+ind_var7_recib_ult1           integer
+ind_var10_ult1                integer
+ind_var10cte_ult1             integer
+ind_var9_cte_ult1             integer
+ind_var9_ult1                 integer
+ind_var43_emit_ult1           integer
+ind_var43_recib_ult1          integer
+var21                         integer
+num_aport_var13_hace3         integer
+num_aport_var13_ult1          integer
+num_aport_var17_hace3         integer
+num_aport_var17_ult1          integer
+num_aport_var33_hace3         integer
+num_aport_var33_ult1          integer
+num_var7_recib_ult1           integer
+num_compra_var44_hace3        integer
+num_compra_var44_ult1         integer
+num_ent_var16_ult1            integer
+num_var22_hace2               integer
+num_var22_hace3               integer
+num_var22_ult1                integer
+num_var22_ult3                integer
+num_med_var22_ult3            integer
+num_med_var45_ult3            integer
+num_meses_var5_ult3           integer
+num_meses_var8_ult3           integer
+num_meses_var12_ult3          integer
+num_meses_var13_corto_ult3    integer
+num_meses_var13_largo_ult3    integer
+num_meses_var17_ult3          integer
+num_meses_var29_ult3          integer
+num_meses_var33_ult3          integer
+num_meses_var39_vig_ult3      integer
+num_meses_var44_ult3          integer
+num_op_var39_comer_ult1       integer
+num_op_var39_comer_ult3       integer
+num_op_var40_comer_ult1       integer
+num_op_var40_comer_ult3       integer
+num_op_var40_efect_ult1       integer
+num_op_var40_efect_ult3       integer
+num_op_var41_comer_ult1       integer
+num_op_var41_comer_ult3       integer
+num_op_var41_efect_ult1       integer
+num_op_var41_efect_ult3       integer
+num_op_var39_efect_ult1       integer
+num_op_var39_efect_ult3       integer
+num_reemb_var13_ult1          integer
+num_reemb_var17_ult1          integer
+num_sal_var16_ult1            integer
+num_var43_emit_ult1           integer
+num_var43_recib_ult1          integer
+num_trasp_var11_ult1          integer
+num_trasp_var17_out_ult1      integer
+num_trasp_var33_in_hace3      integer
+num_trasp_var33_in_ult1       integer
+num_venta_var44_ult1          integer
+num_var45_hace2               integer
+num_var45_hace3               integer
+num_var45_ult1                integer
+num_var45_ult3                integer
+saldo_medio_var5_hace2         double
+saldo_medio_var5_hace3         double
+saldo_medio_var5_ult1          double
+saldo_medio_var5_ult3          double
+saldo_medio_var8_hace2         double
+saldo_medio_var8_hace3         double
+saldo_medio_var8_ult1          double
+saldo_medio_var8_ult3          double
+saldo_medio_var12_hace2        double
+saldo_medio_var12_hace3        double
+saldo_medio_var12_ult1         double
+saldo_medio_var12_ult3         double
+saldo_medio_var13_corto_hace2  double
+saldo_medio_var13_corto_hace3  double
+saldo_medio_var13_corto_ult1   double
+saldo_medio_var13_corto_ult3   double
+saldo_medio_var13_largo_hace2  double
+saldo_medio_var13_largo_hace3  double
+saldo_medio_var13_largo_ult1   double
+saldo_medio_var13_largo_ult3   double
+saldo_medio_var13_medio_hace2  double
+saldo_medio_var13_medio_ult1  integer
+saldo_medio_var13_medio_ult3   double
+saldo_medio_var17_hace2        double
+saldo_medio_var17_hace3        double
+saldo_medio_var17_ult1         double
+saldo_medio_var17_ult3         double
+saldo_medio_var29_hace2        double
+saldo_medio_var29_ult1         double
+saldo_medio_var29_ult3         double
+saldo_medio_var33_hace2        double
+saldo_medio_var33_hace3        double
+saldo_medio_var33_ult1         double
+saldo_medio_var33_ult3         double
+saldo_medio_var44_hace2        double
+saldo_medio_var44_hace3        double
+saldo_medio_var44_ult1         double
+saldo_medio_var44_ult3         double
+var38                          double
+TARGET                        integer
+
+For the simple distribution tables below the 1st and 3rd Qu. 
+refer to the first and third quartiles, indicating that 25% 
+of the observations have values of that variable which are 
+less than or greater than (respectively) the value listed.
+
+      var3             var15       imp_ent_var16_ult1  imp_op_var39_comer_ult1 imp_op_var39_comer_ult3
+ Min.   :-999999   Min.   :  5.0   Min.   :     0.00   Min.   :   0.00         Min.   :    0.0        
+ 1st Qu.:      2   1st Qu.: 23.0   1st Qu.:     0.00   1st Qu.:   0.00         1st Qu.:    0.0        
+ Median :      2   Median : 27.0   Median :     0.00   Median :   0.00         Median :    0.0        
+ Mean   :  -1407   Mean   : 33.2   Mean   :    87.41   Mean   :  73.01         Mean   :  121.5        
+ 3rd Qu.:      2   3rd Qu.: 39.0   3rd Qu.:     0.00   3rd Qu.:   0.00         3rd Qu.:    0.0        
+ Max.   :    238   Max.   :105.0   Max.   :210000.00   Max.   :9968.04         Max.   :21024.8        
+ imp_op_var40_comer_ult1 imp_op_var40_comer_ult3 imp_op_var40_efect_ult1 imp_op_var40_efect_ult3
+ Min.   :   0.000        Min.   :    0.000       Min.   :   0.000        Min.   :   0.000       
+ 1st Qu.:   0.000        1st Qu.:    0.000       1st Qu.:   0.000        1st Qu.:   0.000       
+ Median :   0.000        Median :    0.000       Median :   0.000        Median :   0.000       
+ Mean   :   3.417        Mean   :    6.255       Mean   :   0.448        Mean   :   0.612       
+ 3rd Qu.:   0.000        3rd Qu.:    0.000       3rd Qu.:   0.000        3rd Qu.:   0.000       
+ Max.   :8237.820        Max.   :10351.950       Max.   :6600.000        Max.   :6600.000       
+ imp_op_var40_ult1  imp_op_var41_comer_ult1 imp_op_var41_comer_ult3 imp_op_var41_efect_ult1
+ Min.   :   0.000   Min.   :   0.00         Min.   :    0.0         Min.   :    0.0        
+ 1st Qu.:   0.000   1st Qu.:   0.00         1st Qu.:    0.0         1st Qu.:    0.0        
+ Median :   0.000   Median :   0.00         Median :    0.0         Median :    0.0        
+ Mean   :   3.299   Mean   :  69.59         Mean   :  115.3         Mean   :   67.5        
+ 3rd Qu.:   0.000   3rd Qu.:   0.00         3rd Qu.:    0.0         3rd Qu.:    0.0        
+ Max.   :8237.820   Max.   :8675.70         Max.   :16566.8         Max.   :45990.0        
+ imp_op_var41_efect_ult3 imp_op_var41_ult1 imp_op_var39_efect_ult1 imp_op_var39_efect_ult3
+ Min.   :     0.0        Min.   :    0.0   Min.   :    0.00        Min.   :     0         
+ 1st Qu.:     0.0        1st Qu.:    0.0   1st Qu.:    0.00        1st Qu.:     0         
+ Median :     0.0        Median :    0.0   Median :    0.00        Median :     0         
+ Mean   :   114.4        Mean   :  137.1   Mean   :   67.95        Mean   :   115         
+ 3rd Qu.:     0.0        3rd Qu.:    0.0   3rd Qu.:    0.00        3rd Qu.:     0         
+ Max.   :131100.0        Max.   :47598.1   Max.   :45990.00        Max.   :131100         
+ imp_op_var39_ult1 imp_sal_var16_ult1   ind_var1_0         ind_var1          ind_var5_0    
+ Min.   :    0.0   Min.   :    0.00   Min.   :0.00000   Min.   :0.000000   Min.   :0.0000  
+ 1st Qu.:    0.0   1st Qu.:    0.00   1st Qu.:0.00000   1st Qu.:0.000000   1st Qu.:1.0000  
+ Median :    0.0   Median :    0.00   Median :0.00000   Median :0.000000   Median :1.0000  
+ Mean   :  140.4   Mean   :    4.62   Mean   :0.01137   Mean   :0.003777   Mean   :0.9584  
+ 3rd Qu.:    0.0   3rd Qu.:    0.00   3rd Qu.:0.00000   3rd Qu.:0.000000   3rd Qu.:1.0000  
+ Max.   :47598.1   Max.   :58048.05   Max.   :1.00000   Max.   :1.000000   Max.   :1.0000  
+    ind_var5        ind_var6_0         ind_var8_0         ind_var8        ind_var12_0    
+ Min.   :0.0000   Min.   :0.000000   Min.   :0.00000   Min.   :0.00000   Min.   :0.0000  
+ 1st Qu.:0.0000   1st Qu.:0.000000   1st Qu.:0.00000   1st Qu.:0.00000   1st Qu.:0.0000  
+ Median :1.0000   Median :0.000000   Median :0.00000   Median :0.00000   Median :0.0000  
+ Mean   :0.6656   Mean   :0.000094   Mean   :0.03272   Mean   :0.02871   Mean   :0.0663  
+ 3rd Qu.:1.0000   3rd Qu.:0.000000   3rd Qu.:0.00000   3rd Qu.:0.00000   3rd Qu.:0.0000  
+ Max.   :1.0000   Max.   :1.000000   Max.   :1.00000   Max.   :1.00000   Max.   :1.0000  
+   ind_var12        ind_var13_0      ind_var13_corto_0 ind_var13_corto   ind_var13_largo_0
+ Min.   :0.00000   Min.   :0.00000   Min.   :0.0000    Min.   :0.00000   Min.   :0.00000  
+ 1st Qu.:0.00000   1st Qu.:0.00000   1st Qu.:0.0000    1st Qu.:0.00000   1st Qu.:0.00000  
+ Median :0.00000   Median :0.00000   Median :0.0000    Median :0.00000   Median :0.00000  
+ Mean   :0.04424   Mean   :0.05219   Mean   :0.0429    Mean   :0.04155   Mean   :0.01024  
+ 3rd Qu.:0.00000   3rd Qu.:0.00000   3rd Qu.:0.0000    3rd Qu.:0.00000   3rd Qu.:0.00000  
+ Max.   :1.00000   Max.   :1.00000   Max.   :1.0000    Max.   :1.00000   Max.   :1.00000  
+ ind_var13_largo     ind_var13        ind_var14_0       ind_var14         ind_var17_0      
+ Min.   :0.00000   Min.   :0.00000   Min.   :0.0000   Min.   :0.000000   Min.   :0.000000  
+ 1st Qu.:0.00000   1st Qu.:0.00000   1st Qu.:0.0000   1st Qu.:0.000000   1st Qu.:0.000000  
+ Median :0.00000   Median :0.00000   Median :0.0000   Median :0.000000   Median :0.000000  
+ Mean   :0.01007   Mean   :0.05089   Mean   :0.0234   Mean   :0.005093   Mean   :0.001748  
+ 3rd Qu.:0.00000   3rd Qu.:0.00000   3rd Qu.:0.0000   3rd Qu.:0.000000   3rd Qu.:0.000000  
+ Max.   :1.00000   Max.   :1.00000   Max.   :1.0000   Max.   :1.000000   Max.   :1.000000  
+   ind_var17          ind_var19         ind_var20_0         ind_var20         ind_var24_0     
+ Min.   :0.000000   Min.   :0.000000   Min.   :0.000000   Min.   :0.000000   Min.   :0.00000  
+ 1st Qu.:0.000000   1st Qu.:0.000000   1st Qu.:0.000000   1st Qu.:0.000000   1st Qu.:0.00000  
+ Median :0.000000   Median :0.000000   Median :0.000000   Median :0.000000   Median :0.00000  
+ Mean   :0.001372   Mean   :0.004247   Mean   :0.003476   Mean   :0.002556   Mean   :0.04149  
+ 3rd Qu.:0.000000   3rd Qu.:0.000000   3rd Qu.:0.000000   3rd Qu.:0.000000   3rd Qu.:0.00000  
+ Max.   :1.000000   Max.   :1.000000   Max.   :1.000000   Max.   :1.000000   Max.   :1.00000  
+   ind_var24       ind_var25_cte      ind_var26_0      ind_var26_cte       ind_var26      
+ Min.   :0.00000   Min.   :0.00000   Min.   :0.00000   Min.   :0.00000   Min.   :0.00000  
+ 1st Qu.:0.00000   1st Qu.:0.00000   1st Qu.:0.00000   1st Qu.:0.00000   1st Qu.:0.00000  
+ Median :0.00000   Median :0.00000   Median :0.00000   Median :0.00000   Median :0.00000  
+ Mean   :0.03702   Mean   :0.02637   Mean   :0.02424   Mean   :0.02729   Mean   :0.02424  
+ 3rd Qu.:0.00000   3rd Qu.:0.00000   3rd Qu.:0.00000   3rd Qu.:0.00000   3rd Qu.:0.00000  
+ Max.   :1.00000   Max.   :1.00000   Max.   :1.00000   Max.   :1.00000   Max.   :1.00000  
+  ind_var25_0        ind_var25        ind_var29_0        ind_var30_0       ind_var30     
+ Min.   :0.00000   Min.   :0.00000   Min.   :0.000000   Min.   :0.0000   Min.   :0.0000  
+ 1st Qu.:0.00000   1st Qu.:0.00000   1st Qu.:0.000000   1st Qu.:1.0000   1st Qu.:0.0000  
+ Median :0.00000   Median :0.00000   Median :0.000000   Median :1.0000   Median :1.0000  
+ Mean   :0.02345   Mean   :0.02345   Mean   :0.000094   Mean   :0.9955   Mean   :0.7342  
+ 3rd Qu.:0.00000   3rd Qu.:0.00000   3rd Qu.:0.000000   3rd Qu.:1.0000   3rd Qu.:1.0000  
+ Max.   :1.00000   Max.   :1.00000   Max.   :1.000000   Max.   :1.0000   Max.   :1.0000  
+  ind_var31_0         ind_var31        ind_var32_cte       ind_var32_0          ind_var32        
+ Min.   :0.000000   Min.   :0.000000   Min.   :0.000000   Min.   :0.0000000   Min.   :0.0000000  
+ 1st Qu.:0.000000   1st Qu.:0.000000   1st Qu.:0.000000   1st Qu.:0.0000000   1st Qu.:0.0000000  
+ Median :0.000000   Median :0.000000   Median :0.000000   Median :0.0000000   Median :0.0000000  
+ Mean   :0.004247   Mean   :0.003721   Mean   :0.000996   Mean   :0.0008644   Mean   :0.0008644  
+ 3rd Qu.:0.000000   3rd Qu.:0.000000   3rd Qu.:0.000000   3rd Qu.:0.0000000   3rd Qu.:0.0000000  
+ Max.   :1.000000   Max.   :1.000000   Max.   :1.000000   Max.   :1.0000000   Max.   :1.0000000  
+  ind_var33_0          ind_var33          ind_var34_0        ind_var37_cte      ind_var37_0     
+ Min.   :0.0000000   Min.   :0.0000000   Min.   :0.0000000   Min.   :0.00000   Min.   :0.00000  
+ 1st Qu.:0.0000000   1st Qu.:0.0000000   1st Qu.:0.0000000   1st Qu.:0.00000   1st Qu.:0.00000  
+ Median :0.0000000   Median :0.0000000   Median :0.0000000   Median :0.00000   Median :0.00000  
+ Mean   :0.0007705   Mean   :0.0006953   Mean   :0.0000376   Mean   :0.07241   Mean   :0.06543  
+ 3rd Qu.:0.0000000   3rd Qu.:0.0000000   3rd Qu.:0.0000000   3rd Qu.:0.00000   3rd Qu.:0.00000  
+ Max.   :1.0000000   Max.   :1.0000000   Max.   :1.0000000   Max.   :1.00000   Max.   :1.00000  
+   ind_var37        ind_var39_0      ind_var40_0        ind_var40         ind_var41_0    
+ Min.   :0.00000   Min.   :0.0000   Min.   :0.00000   Min.   :0.000000   Min.   :0.0000  
+ 1st Qu.:0.00000   1st Qu.:1.0000   1st Qu.:0.00000   1st Qu.:0.000000   1st Qu.:1.0000  
+ Median :0.00000   Median :1.0000   Median :0.00000   Median :0.000000   Median :1.0000  
+ Mean   :0.06543   Mean   :0.8823   Mean   :0.01131   Mean   :0.003721   Mean   :0.8809  
+ 3rd Qu.:0.00000   3rd Qu.:1.0000   3rd Qu.:0.00000   3rd Qu.:0.000000   3rd Qu.:1.0000  
+ Max.   :1.00000   Max.   :1.0000   Max.   :1.00000   Max.   :1.000000   Max.   :1.0000  
+   ind_var39         ind_var44_0         ind_var44          num_var1_0         num_var1      
+ Min.   :0.000000   Min.   :0.000000   Min.   :0.000000   Min.   :0.00000   Min.   :0.00000  
+ 1st Qu.:0.000000   1st Qu.:0.000000   1st Qu.:0.000000   1st Qu.:0.00000   1st Qu.:0.00000  
+ Median :0.000000   Median :0.000000   Median :0.000000   Median :0.00000   Median :0.00000  
+ Mean   :0.003721   Mean   :0.001879   Mean   :0.001748   Mean   :0.03422   Mean   :0.01139  
+ 3rd Qu.:0.000000   3rd Qu.:0.000000   3rd Qu.:0.000000   3rd Qu.:0.00000   3rd Qu.:0.00000  
+ Max.   :1.000000   Max.   :1.000000   Max.   :1.000000   Max.   :6.00000   Max.   :6.00000  
+    num_var4       num_var5_0        num_var5        num_var6_0          num_var8_0     
+ Min.   :0.000   Min.   : 0.000   Min.   : 0.000   Min.   :0.0000000   Min.   :0.00000  
+ 1st Qu.:0.000   1st Qu.: 3.000   1st Qu.: 0.000   1st Qu.:0.0000000   1st Qu.:0.00000  
+ Median :1.000   Median : 3.000   Median : 3.000   Median :0.0000000   Median :0.00000  
+ Mean   :1.081   Mean   : 2.894   Mean   : 2.004   Mean   :0.0002819   Mean   :0.09821  
+ 3rd Qu.:1.000   3rd Qu.: 3.000   3rd Qu.: 3.000   3rd Qu.:0.0000000   3rd Qu.:0.00000  
+ Max.   :7.000   Max.   :15.000   Max.   :15.000   Max.   :3.0000000   Max.   :6.00000  
+    num_var8        num_var12_0        num_var12        num_var13_0      num_var13_corto_0
+ Min.   :0.00000   Min.   : 0.0000   Min.   : 0.0000   Min.   : 0.0000   Min.   :0.0000   
+ 1st Qu.:0.00000   1st Qu.: 0.0000   1st Qu.: 0.0000   1st Qu.: 0.0000   1st Qu.:0.0000   
+ Median :0.00000   Median : 0.0000   Median : 0.0000   Median : 0.0000   Median :0.0000   
+ Mean   :0.08614   Mean   : 0.2059   Mean   : 0.1344   Mean   : 0.1681   Mean   :0.1302   
+ 3rd Qu.:0.00000   3rd Qu.: 0.0000   3rd Qu.: 0.0000   3rd Qu.: 0.0000   3rd Qu.:0.0000   
+ Max.   :3.00000   Max.   :15.0000   Max.   :15.0000   Max.   :18.0000   Max.   :6.0000   
+ num_var13_corto  num_var13_largo_0  num_var13_largo      num_var13        num_var14_0      
+ Min.   :0.0000   Min.   : 0.00000   Min.   : 0.00000   Min.   : 0.0000   Min.   : 0.00000  
+ 1st Qu.:0.0000   1st Qu.: 0.00000   1st Qu.: 0.00000   1st Qu.: 0.0000   1st Qu.: 0.00000  
+ Median :0.0000   Median : 0.00000   Median : 0.00000   Median : 0.0000   Median : 0.00000  
+ Mean   :0.1248   Mean   : 0.03777   Mean   : 0.03602   Mean   : 0.1609   Mean   : 0.07047  
+ 3rd Qu.:0.0000   3rd Qu.: 0.00000   3rd Qu.: 0.00000   3rd Qu.: 0.0000   3rd Qu.: 0.00000  
+ Max.   :6.0000   Max.   :18.00000   Max.   :18.00000   Max.   :18.0000   Max.   :12.00000  
+   num_var14        num_var17_0         num_var17           num_var18          num_var20_0     
+ Min.   : 0.0000   Min.   : 0.00000   Min.   : 0.000000   Min.   :0.0000000   Min.   :0.00000  
+ 1st Qu.: 0.0000   1st Qu.: 0.00000   1st Qu.: 0.000000   1st Qu.:0.0000000   1st Qu.:0.00000  
+ Median : 0.0000   Median : 0.00000   Median : 0.000000   Median :0.0000000   Median :0.00000  
+ Mean   : 0.0155   Mean   : 0.01133   Mean   : 0.008287   Mean   :0.0001128   Mean   :0.01043  
+ 3rd Qu.: 0.0000   3rd Qu.: 0.00000   3rd Qu.: 0.000000   3rd Qu.:0.0000000   3rd Qu.:0.00000  
+ Max.   :12.0000   Max.   :36.00000   Max.   :27.000000   Max.   :3.0000000   Max.   :3.00000  
+   num_var20         num_var24_0      num_var24       num_var26_0         num_var26       
+ Min.   :0.000000   Min.   :0.000   Min.   :0.0000   Min.   : 0.00000   Min.   : 0.00000  
+ 1st Qu.:0.000000   1st Qu.:0.000   1st Qu.:0.0000   1st Qu.: 0.00000   1st Qu.: 0.00000  
+ Median :0.000000   Median :0.000   Median :0.0000   Median : 0.00000   Median : 0.00000  
+ Mean   :0.007667   Mean   :0.125   Mean   :0.1112   Mean   : 0.08682   Mean   : 0.08682  
+ 3rd Qu.:0.000000   3rd Qu.:0.000   3rd Qu.:0.0000   3rd Qu.: 0.00000   3rd Qu.: 0.00000  
+ Max.   :3.000000   Max.   :9.000   Max.   :6.0000   Max.   :33.00000   Max.   :33.00000  
+  num_var25_0         num_var25        num_op_var40_hace2 num_op_var40_hace3 num_op_var40_ult1  
+ Min.   : 0.00000   Min.   : 0.00000   Min.   :  0.0000   Min.   : 0.00000   Min.   :  0.00000  
+ 1st Qu.: 0.00000   1st Qu.: 0.00000   1st Qu.:  0.0000   1st Qu.: 0.00000   1st Qu.:  0.00000  
+ Median : 0.00000   Median : 0.00000   Median :  0.0000   Median : 0.00000   Median :  0.00000  
+ Mean   : 0.08338   Mean   : 0.08338   Mean   :  0.0212   Mean   : 0.00113   Mean   :  0.06134  
+ 3rd Qu.: 0.00000   3rd Qu.: 0.00000   3rd Qu.:  0.0000   3rd Qu.: 0.00000   3rd Qu.:  0.00000  
+ Max.   :33.00000   Max.   :33.00000   Max.   :117.0000   Max.   :48.00000   Max.   :234.00000  
+ num_op_var40_ult3  num_op_var41_hace2 num_op_var41_hace3 num_op_var41_ult1 num_op_var41_ult3
+ Min.   :  0.0000   Min.   :  0.000    Min.   : 0.00000   Min.   :  0.000   Min.   :  0.000  
+ 1st Qu.:  0.0000   1st Qu.:  0.000    1st Qu.: 0.00000   1st Qu.:  0.000   1st Qu.:  0.000  
+ Median :  0.0000   Median :  0.000    Median : 0.00000   Median :  0.000   Median :  0.000  
+ Mean   :  0.0837   Mean   :  1.619    Mean   : 0.09482   Mean   :  2.866   Mean   :  4.579  
+ 3rd Qu.:  0.0000   3rd Qu.:  0.000    3rd Qu.: 0.00000   3rd Qu.:  0.000   3rd Qu.:  0.000  
+ Max.   :351.0000   Max.   :249.000    Max.   :81.00000   Max.   :468.000   Max.   :468.000  
+ num_op_var39_hace2 num_op_var39_hace3 num_op_var39_ult1 num_op_var39_ult3  num_var29_0       
+ Min.   :  0.00     Min.   : 0.00000   Min.   :  0.000   Min.   :  0.000   Min.   :0.0000000  
+ 1st Qu.:  0.00     1st Qu.: 0.00000   1st Qu.:  0.000   1st Qu.:  0.000   1st Qu.:0.0000000  
+ Median :  0.00     Median : 0.00000   Median :  0.000   Median :  0.000   Median :0.0000000  
+ Mean   :  1.64     Mean   : 0.09595   Mean   :  2.927   Mean   :  4.663   Mean   :0.0002819  
+ 3rd Qu.:  0.00     3rd Qu.: 0.00000   3rd Qu.:  0.000   3rd Qu.:  0.000   3rd Qu.:0.0000000  
+ Max.   :249.00     Max.   :81.00000   Max.   :468.000   Max.   :468.000   Max.   :3.0000000  
+  num_var30_0       num_var30       num_var31_0         num_var31        num_var32_0      
+ Min.   : 0.000   Min.   : 0.000   Min.   : 0.00000   Min.   : 0.0000   Min.   :0.000000  
+ 1st Qu.: 3.000   1st Qu.: 0.000   1st Qu.: 0.00000   1st Qu.: 0.0000   1st Qu.:0.000000  
+ Median : 3.000   Median : 3.000   Median : 0.00000   Median : 0.0000   Median :0.000000  
+ Mean   : 3.367   Mean   : 2.385   Mean   : 0.01979   Mean   : 0.0159   Mean   :0.003439  
+ 3rd Qu.: 3.000   3rd Qu.: 3.000   3rd Qu.: 0.00000   3rd Qu.: 0.0000   3rd Qu.:0.000000  
+ Max.   :33.000   Max.   :33.000   Max.   :36.00000   Max.   :27.0000   Max.   :9.000000  
+   num_var32         num_var33_0          num_var33          num_var35      num_var37_med_ult2
+ Min.   :0.000000   Min.   : 0.000000   Min.   :0.000000   Min.   : 0.000   Min.   :  0.0000  
+ 1st Qu.:0.000000   1st Qu.: 0.000000   1st Qu.:0.000000   1st Qu.: 0.000   1st Qu.:  0.0000  
+ Median :0.000000   Median : 0.000000   Median :0.000000   Median : 3.000   Median :  0.0000  
+ Mean   :0.003439   Mean   : 0.002762   Mean   :0.002368   Mean   : 3.305   Mean   :  0.2614  
+ 3rd Qu.:0.000000   3rd Qu.: 0.000000   3rd Qu.:0.000000   3rd Qu.: 3.000   3rd Qu.:  0.0000  
+ Max.   :9.000000   Max.   :12.000000   Max.   :6.000000   Max.   :36.000   Max.   :105.0000  
+  num_var37_0         num_var37         num_var39_0      num_var40_0        num_var40      
+ Min.   :  0.0000   Min.   :  0.0000   Min.   : 0.000   Min.   :0.00000   Min.   :0.00000  
+ 1st Qu.:  0.0000   1st Qu.:  0.0000   1st Qu.: 3.000   1st Qu.:0.00000   1st Qu.:0.00000  
+ Median :  0.0000   Median :  0.0000   Median : 3.000   Median :0.00000   Median :0.00000  
+ Mean   :  0.4158   Mean   :  0.4158   Mean   : 2.728   Mean   :0.03399   Mean   :0.01116  
+ 3rd Qu.:  0.0000   3rd Qu.:  0.0000   3rd Qu.: 3.000   3rd Qu.:0.00000   3rd Qu.:0.00000  
+ Max.   :114.0000   Max.   :114.0000   Max.   :21.000   Max.   :6.00000   Max.   :3.00000  
+  num_var41_0       num_var39        num_var42_0       num_var42       num_var44_0      
+ Min.   : 0.000   Min.   :0.00000   Min.   : 0.000   Min.   : 0.000   Min.   :0.000000  
+ 1st Qu.: 3.000   1st Qu.:0.00000   1st Qu.: 3.000   1st Qu.: 0.000   1st Qu.:0.000000  
+ Median : 3.000   Median :0.00000   Median : 3.000   Median : 3.000   Median :0.000000  
+ Mean   : 2.703   Mean   :0.01116   Mean   : 3.199   Mean   : 2.219   Mean   :0.005694  
+ 3rd Qu.: 3.000   3rd Qu.:0.00000   3rd Qu.: 3.000   3rd Qu.: 3.000   3rd Qu.:0.000000  
+ Max.   :21.000   Max.   :3.00000   Max.   :18.000   Max.   :18.000   Max.   :6.000000  
+   num_var44          saldo_var1          saldo_var5       saldo_var6          saldo_var8      
+ Min.   :0.000000   Min.   :     -0.9   Min.   : -2896   Min.   :    0.000   Min.   : -1802.0  
+ 1st Qu.:0.000000   1st Qu.:      0.0   1st Qu.:     0   1st Qu.:    0.000   1st Qu.:     0.0  
+ Median :0.000000   Median :      0.0   Median :     3   Median :    0.000   Median :     0.0  
+ Mean   :0.005243   Mean   :     67.4   Mean   :  1069   Mean   :    0.367   Mean   :   148.9  
+ 3rd Qu.:0.000000   3rd Qu.:      0.0   3rd Qu.:    90   3rd Qu.:    0.000   3rd Qu.:     0.0  
+ Max.   :3.000000   Max.   :3000000.0   Max.   :619329   Max.   :19531.800   Max.   :240045.0  
+  saldo_var12      saldo_var13_corto saldo_var13_largo saldo_var13_medio    saldo_var13     
+ Min.   :      0   Min.   :     0    Min.   :      0   Min.   :    0.000   Min.   :      0  
+ 1st Qu.:      0   1st Qu.:     0    1st Qu.:      0   1st Qu.:    0.000   1st Qu.:      0  
+ Median :      0   Median :     0    Median :      0   Median :    0.000   Median :      0  
+ Mean   :   5813   Mean   :  4973    Mean   :   1557   Mean   :    0.733   Mean   :   6530  
+ 3rd Qu.:      0   3rd Qu.:     0    3rd Qu.:      0   3rd Qu.:    0.000   3rd Qu.:      0  
+ Max.   :3008077   Max.   :450000    Max.   :1500000   Max.   :30000.000   Max.   :1500000  
+  saldo_var14         saldo_var17        saldo_var18       saldo_var20      saldo_var24     
+ Min.   :     0.00   Min.   :     0.0   Min.   :      0   Min.   :     0   Min.   :      0  
+ 1st Qu.:     0.00   1st Qu.:     0.0   1st Qu.:      0   1st Qu.:     0   1st Qu.:      0  
+ Median :     0.00   Median :     0.0   Median :      0   Median :     0   Median :      0  
+ Mean   :    56.91   Mean   :   110.7   Mean   :     62   Mean   :    23   Mean   :   5733  
+ 3rd Qu.:     0.00   3rd Qu.:     0.0   3rd Qu.:      0   3rd Qu.:     0   3rd Qu.:      0  
+ Max.   :315000.00   Max.   :525742.2   Max.   :3000000   Max.   :455858   Max.   :3008077  
+  saldo_var26        saldo_var25        saldo_var29         saldo_var30       saldo_var31    
+ Min.   :    0.00   Min.   :    0.00   Min.   :    0.000   Min.   :  -2896   Min.   :     0  
+ 1st Qu.:    0.00   1st Qu.:    0.00   1st Qu.:    0.000   1st Qu.:      0   1st Qu.:     0  
+ Median :    0.00   Median :    0.00   Median :    0.000   Median :      3   Median :     0  
+ Mean   :   73.99   Mean   :   71.14   Mean   :    0.367   Mean   :  13562   Mean   :   214  
+ 3rd Qu.:    0.00   3rd Qu.:    0.00   3rd Qu.:    0.000   3rd Qu.:    240   3rd Qu.:     0  
+ Max.   :69756.72   Max.   :69756.72   Max.   :19531.800   Max.   :3458077   Max.   :525742  
+  saldo_var32         saldo_var33         saldo_var34        saldo_var37        saldo_var40      
+ Min.   :    0.000   Min.   :     0.00   Min.   :    0.00   Min.   :    0.00   Min.   :  -0.900  
+ 1st Qu.:    0.000   1st Qu.:     0.00   1st Qu.:    0.00   1st Qu.:    0.00   1st Qu.:   0.000  
+ Median :    0.000   Median :     0.00   Median :    0.00   Median :    0.00   Median :   0.000  
+ Mean   :    2.853   Mean   :    16.37   Mean   :    0.96   Mean   :   35.83   Mean   :   4.397  
+ 3rd Qu.:    0.000   3rd Qu.:     0.00   3rd Qu.:    0.00   3rd Qu.:    0.00   3rd Qu.:   0.000  
+ Max.   :12210.780   Max.   :142078.80   Max.   :36000.00   Max.   :53395.35   Max.   :8192.610  
+  saldo_var42       saldo_var44           var36      delta_imp_aport_var13_1y3 delta_imp_aport_var17_1y3
+ Min.   :  -2896   Min.   :     0.0   Min.   : 0.0   Min.   :        -1        Min.   :        -1       
+ 1st Qu.:      0   1st Qu.:     0.0   1st Qu.: 2.0   1st Qu.:         0        1st Qu.:         0       
+ Median :      3   Median :     0.0   Median : 3.0   Median :         0        Median :         0       
+ Mean   :   7032   Mean   :    86.9   Mean   :40.4   Mean   :  47355959        Mean   :   5449694       
+ 3rd Qu.:    120   3rd Qu.:     0.0   3rd Qu.:99.0   3rd Qu.:         0        3rd Qu.:         0       
+ Max.   :3008077   Max.   :525551.4   Max.   :99.0   Max.   :9999999999        Max.   :9999999999       
+ delta_imp_compra_var44_1y3 delta_imp_reemb_var13_1y3 delta_imp_reemb_var17_1y3
+ Min.   :        -1         Min.   :         0        Min.   :        -1       
+ 1st Qu.:         0         1st Qu.:         0        1st Qu.:         0       
+ Median :         0         Median :         0        Median :         0       
+ Mean   :  10523546         Mean   :   5073853        Mean   :   2818807       
+ 3rd Qu.:         0         3rd Qu.:         0        3rd Qu.:         0       
+ Max.   :9999999999         Max.   :9999999999        Max.   :9999999999       
+ delta_imp_trasp_var17_in_1y3 delta_imp_trasp_var17_out_1y3 delta_imp_trasp_var33_in_1y3
+ Min.   :        -1           Min.   :         0            Min.   :        -1          
+ 1st Qu.:         0           1st Qu.:         0            1st Qu.:         0          
+ Median :         0           Median :         0            Median :         0          
+ Mean   :    751682           Mean   :    187920            Mean   :    375841          
+ 3rd Qu.:         0           3rd Qu.:         0            3rd Qu.:         0          
+ Max.   :9999999999           Max.   :9999999999            Max.   :9999999999          
+ delta_imp_venta_var44_1y3 delta_num_aport_var13_1y3 delta_num_aport_var17_1y3
+ Min.   :        -1        Min.   :        -1        Min.   :        -1       
+ 1st Qu.:         0        1st Qu.:         0        1st Qu.:         0       
+ Median :         0        Median :         0        Median :         0       
+ Mean   :   5825535        Mean   :  47355959        Mean   :   5449694       
+ 3rd Qu.:         0        3rd Qu.:         0        3rd Qu.:         0       
+ Max.   :9999999999        Max.   :9999999999        Max.   :9999999999       
+ delta_num_compra_var44_1y3 delta_num_reemb_var13_1y3 delta_num_reemb_var17_1y3
+ Min.   :        -1         Min.   :         0        Min.   :        -1       
+ 1st Qu.:         0         1st Qu.:         0        1st Qu.:         0       
+ Median :         0         Median :         0        Median :         0       
+ Mean   :  10523546         Mean   :   5073853        Mean   :   2818807       
+ 3rd Qu.:         0         3rd Qu.:         0        3rd Qu.:         0       
+ Max.   :9999999999         Max.   :9999999999        Max.   :9999999999       
+ delta_num_trasp_var17_in_1y3 delta_num_trasp_var17_out_1y3 delta_num_trasp_var33_in_1y3
+ Min.   :        -1           Min.   :         0            Min.   :        -1          
+ 1st Qu.:         0           1st Qu.:         0            1st Qu.:         0          
+ Median :         0           Median :         0            Median :         0          
+ Mean   :    751682           Mean   :    187920            Mean   :    375841          
+ 3rd Qu.:         0           3rd Qu.:         0            3rd Qu.:         0          
+ Max.   :9999999999           Max.   :9999999999            Max.   :9999999999          
+ delta_num_venta_var44_1y3 imp_amort_var18_ult1 imp_amort_var34_ult1 imp_aport_var13_hace3
+ Min.   :        -1        Min.   :    0.00     Min.   :   0.0000    Min.   :     0       
+ 1st Qu.:         0        1st Qu.:    0.00     1st Qu.:   0.0000    1st Qu.:     0       
+ Median :         0        Median :    0.00     Median :   0.0000    Median :     0       
+ Mean   :   5825535        Mean   :    0.33     Mean   :   0.0258    Mean   :  2864       
+ 3rd Qu.:         0        3rd Qu.:    0.00     3rd Qu.:   0.0000    3rd Qu.:     0       
+ Max.   :9999999999        Max.   :15691.80     Max.   :1096.0200    Max.   :774556       
+ imp_aport_var13_ult1 imp_aport_var17_hace3 imp_aport_var17_ult1 imp_aport_var33_hace3
+ Min.   :     0       Min.   :     0.00     Min.   :     0.0     Min.   :    0.00     
+ 1st Qu.:     0       1st Qu.:     0.00     1st Qu.:     0.0     1st Qu.:    0.00     
+ Median :     0       Median :     0.00     Median :     0.0     Median :    0.00     
+ Mean   :   616       Mean   :    15.59     Mean   :    36.3     Mean   :    3.53     
+ 3rd Qu.:     0       3rd Qu.:     0.00     3rd Qu.:     0.0     3rd Qu.:    0.00     
+ Max.   :450000       Max.   :174000.00     Max.   :432457.3     Max.   :36000.00     
+ imp_aport_var33_ult1 imp_var7_emit_ult1  imp_var7_recib_ult1 imp_compra_var44_hace3
+ Min.   :  0.000      Min.   :     0.00   Min.   :      0.0   Min.   :     0.00     
+ 1st Qu.:  0.000      1st Qu.:     0.00   1st Qu.:      0.0   1st Qu.:     0.00     
+ Median :  0.000      Median :     0.00   Median :      0.0   Median :     0.00     
+ Mean   :  0.031      Mean   :     2.73   Mean   :    117.9   Mean   :    11.28     
+ 3rd Qu.:  0.000      3rd Qu.:     0.00   3rd Qu.:      0.0   3rd Qu.:     0.00     
+ Max.   :750.000      Max.   :145384.92   Max.   :1039260.0   Max.   :210001.35     
+ imp_compra_var44_ult1 imp_reemb_var13_ult1 imp_reemb_var17_ult1 imp_var43_emit_ult1
+ Min.   :      0.0     Min.   :     0.0     Min.   :     0.00    Min.   :     0.0   
+ 1st Qu.:      0.0     1st Qu.:     0.0     1st Qu.:     0.00    1st Qu.:     0.0   
+ Median :      0.0     Median :     0.0     Median :     0.00    Median :     0.0   
+ Mean   :     89.3     Mean   :    51.8     Mean   :    14.53    Mean   :   878.4   
+ 3rd Qu.:      0.0     3rd Qu.:     0.0     3rd Qu.:     0.00    3rd Qu.:     0.0   
+ Max.   :1266786.0     Max.   :450000.0     Max.   :182132.97    Max.   :901169.1   
+ imp_trans_var37_ult1 imp_trasp_var17_in_hace3 imp_trasp_var17_in_ult1 imp_trasp_var17_out_ult1
+ Min.   :      0      Min.   :    0.00         Min.   :     0.00       Min.   :    0.00        
+ 1st Qu.:      0      1st Qu.:    0.00         1st Qu.:     0.00       1st Qu.:    0.00        
+ Median :      0      Median :    0.00         Median :     0.00       Median :    0.00        
+ Mean   :   1982      Mean   :    1.82         Mean   :     3.59       Mean   :    1.31        
+ 3rd Qu.:      0      3rd Qu.:    0.00         3rd Qu.:     0.00       3rd Qu.:    0.00        
+ Max.   :2183564      Max.   :96781.44         Max.   :133730.58       Max.   :69622.29        
+ imp_trasp_var33_in_hace3 imp_trasp_var33_in_ult1 imp_venta_var44_hace3 imp_venta_var44_ult1
+ Min.   :    0.00         Min.   :    0.00        Min.   :     0.00     Min.   :      0.0   
+ 1st Qu.:    0.00         1st Qu.:    0.00        1st Qu.:     0.00     1st Qu.:      0.0   
+ Median :    0.00         Median :    0.00        Median :     0.00     Median :      0.0   
+ Mean   :    3.99         Mean   :    0.35        Mean   :     5.41     Mean   :     53.5   
+ 3rd Qu.:    0.00         3rd Qu.:    0.00        3rd Qu.:     0.00     3rd Qu.:      0.0   
+ Max.   :49581.27         Max.   :13207.32        Max.   :209834.40     Max.   :1296894.0   
+ ind_var7_emit_ult1  ind_var7_recib_ult1 ind_var10_ult1    ind_var10cte_ult1 ind_var9_cte_ult1
+ Min.   :0.0000000   Min.   :0.000000    Min.   :0.00000   Min.   :0.00000   Min.   :0.00000  
+ 1st Qu.:0.0000000   1st Qu.:0.000000    1st Qu.:0.00000   1st Qu.:0.00000   1st Qu.:0.00000  
+ Median :0.0000000   Median :0.000000    Median :0.00000   Median :0.00000   Median :0.00000  
+ Mean   :0.0000188   Mean   :0.002668    Mean   :0.08107   Mean   :0.09227   Mean   :0.09678  
+ 3rd Qu.:0.0000000   3rd Qu.:0.000000    3rd Qu.:0.00000   3rd Qu.:0.00000   3rd Qu.:0.00000  
+ Max.   :1.0000000   Max.   :1.000000    Max.   :1.00000   Max.   :1.00000   Max.   :1.00000  
+ ind_var9_ult1     ind_var43_emit_ult1 ind_var43_recib_ult1     var21          num_aport_var13_hace3
+ Min.   :0.00000   Min.   :0.00000     Min.   :0.0000       Min.   :    0.00   Min.   : 0.00000     
+ 1st Qu.:0.00000   1st Qu.:0.00000     1st Qu.:0.0000       1st Qu.:    0.00   1st Qu.: 0.00000     
+ Median :0.00000   Median :0.00000     Median :0.0000       Median :    0.00   Median : 0.00000     
+ Mean   :0.08592   Mean   :0.06624     Mean   :0.1305       Mean   :   32.24   Mean   : 0.07718     
+ 3rd Qu.:0.00000   3rd Qu.:0.00000     3rd Qu.:0.0000       3rd Qu.:    0.00   3rd Qu.: 0.00000     
+ Max.   :1.00000   Max.   :1.00000     Max.   :1.0000       Max.   :18000.00   Max.   :24.00000     
+ num_aport_var13_ult1 num_aport_var17_hace3 num_aport_var17_ult1 num_aport_var33_hace3
+ Min.   : 0.0000      Min.   :0.00000       Min.   : 0.000000    Min.   : 0.000000    
+ 1st Qu.: 0.0000      1st Qu.:0.00000       1st Qu.: 0.000000    1st Qu.: 0.000000    
+ Median : 0.0000      Median :0.00000       Median : 0.000000    Median : 0.000000    
+ Mean   : 0.0177      Mean   :0.00124       Mean   : 0.003383    Mean   : 0.001297    
+ 3rd Qu.: 0.0000      3rd Qu.:0.00000       3rd Qu.: 0.000000    3rd Qu.: 0.000000    
+ Max.   :30.0000      Max.   :9.00000       Max.   :21.000000    Max.   :12.000000    
+ num_aport_var33_ult1 num_var7_recib_ult1 num_compra_var44_hace3 num_compra_var44_ult1
+ Min.   :0.000000     Min.   : 0.00000    Min.   :0.000000       Min.   : 0.000000    
+ 1st Qu.:0.000000     1st Qu.: 0.00000    1st Qu.:0.000000       1st Qu.: 0.000000    
+ Median :0.000000     Median : 0.00000    Median :0.000000       Median : 0.000000    
+ Mean   :0.000282     Mean   : 0.01049    Mean   :0.001579       Mean   : 0.007498    
+ 3rd Qu.:0.000000     3rd Qu.: 0.00000    3rd Qu.:0.000000       3rd Qu.: 0.000000    
+ Max.   :6.000000     Max.   :24.00000    Max.   :9.000000       Max.   :24.000000    
+ num_ent_var16_ult1 num_var22_hace2   num_var22_hace3   num_var22_ult1    num_var22_ult3   
+ Min.   : 0.0000    Min.   :  0.000   Min.   :  0.000   Min.   : 0.0000   Min.   :  0.000  
+ 1st Qu.: 0.0000    1st Qu.:  0.000   1st Qu.:  0.000   1st Qu.: 0.0000   1st Qu.:  0.000  
+ Median : 0.0000    Median :  0.000   Median :  0.000   Median : 0.0000   Median :  0.000  
+ Mean   : 0.1904    Mean   :  1.309   Mean   :  1.191   Mean   : 0.5614   Mean   :  3.061  
+ 3rd Qu.: 0.0000    3rd Qu.:  0.000   3rd Qu.:  0.000   3rd Qu.: 0.0000   3rd Qu.:  3.000  
+ Max.   :60.0000    Max.   :123.000   Max.   :108.000   Max.   :96.0000   Max.   :234.000  
+ num_med_var22_ult3 num_med_var45_ult3 num_meses_var5_ult3 num_meses_var8_ult3 num_meses_var12_ult3
+ Min.   : 0.0000    Min.   :  0.000    Min.   :0.000       Min.   :0.00000     Min.   :0.00000     
+ 1st Qu.: 0.0000    1st Qu.:  0.000    1st Qu.:0.000       1st Qu.:0.00000     1st Qu.:0.00000     
+ Median : 0.0000    Median :  0.000    Median :3.000       Median :0.00000     Median :0.00000     
+ Mean   : 0.6416    Mean   :  4.035    Mean   :1.983       Mean   :0.05367     Mean   :0.09834     
+ 3rd Qu.: 0.0000    3rd Qu.:  3.000    3rd Qu.:3.000       3rd Qu.:0.00000     3rd Qu.:0.00000     
+ Max.   :78.0000    Max.   :267.000    Max.   :3.000       Max.   :3.00000     Max.   :3.00000     
+ num_meses_var13_corto_ult3 num_meses_var13_largo_ult3 num_meses_var17_ult3 num_meses_var29_ult3
+ Min.   :0.00000            Min.   :0.00000            Min.   :0.000000     Min.   :0.0000000   
+ 1st Qu.:0.00000            1st Qu.:0.00000            1st Qu.:0.000000     1st Qu.:0.0000000   
+ Median :0.00000            Median :0.00000            Median :0.000000     Median :0.0000000   
+ Mean   :0.09924            Mean   :0.01751            Mean   :0.002706     Mean   :0.0001315   
+ 3rd Qu.:0.00000            3rd Qu.:0.00000            3rd Qu.:0.000000     3rd Qu.:0.0000000   
+ Max.   :3.00000            Max.   :3.00000            Max.   :3.000000     Max.   :2.0000000   
+ num_meses_var33_ult3 num_meses_var39_vig_ult3 num_meses_var44_ult3 num_op_var39_comer_ult1
+ Min.   :0.000000     Min.   :0.000            Min.   :0.000000     Min.   :  0.000        
+ 1st Qu.:0.000000     1st Qu.:1.000            1st Qu.:0.000000     1st Qu.:  0.000        
+ Median :0.000000     Median :2.000            Median :0.000000     Median :  0.000        
+ Mean   :0.001729     Mean   :1.597            Mean   :0.003476     Mean   :  2.207        
+ 3rd Qu.:0.000000     3rd Qu.:2.000            3rd Qu.:0.000000     3rd Qu.:  0.000        
+ Max.   :3.000000     Max.   :3.000            Max.   :3.000000     Max.   :438.000        
+ num_op_var39_comer_ult3 num_op_var40_comer_ult1 num_op_var40_comer_ult3 num_op_var40_efect_ult1
+ Min.   :  0.000         Min.   :  0.00000       Min.   :  0.0000        Min.   : 0.000000      
+ 1st Qu.:  0.000         1st Qu.:  0.00000       1st Qu.:  0.0000        1st Qu.: 0.000000      
+ Median :  0.000         Median :  0.00000       Median :  0.0000        Median : 0.000000      
+ Mean   :  3.635         Mean   :  0.07329       Mean   :  0.1442        Mean   : 0.002537      
+ 3rd Qu.:  0.000         3rd Qu.:  0.00000       3rd Qu.:  0.0000        3rd Qu.: 0.000000      
+ Max.   :600.000         Max.   :210.00000       Max.   :582.0000        Max.   :24.000000      
+ num_op_var40_efect_ult3 num_op_var41_comer_ult1 num_op_var41_comer_ult3 num_op_var41_efect_ult1
+ Min.   : 0.000000       Min.   :  0.000         Min.   :  0.00          Min.   : 0.0000        
+ 1st Qu.: 0.000000       1st Qu.:  0.000         1st Qu.:  0.00          1st Qu.: 0.0000        
+ Median : 0.000000       Median :  0.000         Median :  0.00          Median : 0.0000        
+ Mean   : 0.003834       Mean   :  2.133         Mean   :  3.49          Mean   : 0.7134        
+ 3rd Qu.: 0.000000       3rd Qu.:  0.000         3rd Qu.:  0.00          3rd Qu.: 0.0000        
+ Max.   :24.000000       Max.   :438.000         Max.   :438.00          Max.   :69.0000        
+ num_op_var41_efect_ult3 num_op_var39_efect_ult1 num_op_var39_efect_ult3 num_reemb_var13_ult1
+ Min.   :  0.000         Min.   : 0.0000         Min.   :  0.000         Min.   :0.000000    
+ 1st Qu.:  0.000         1st Qu.: 0.0000         1st Qu.:  0.000         1st Qu.:0.000000    
+ Median :  0.000         Median : 0.0000         Median :  0.000         Median :0.000000    
+ Mean   :  1.212         Mean   : 0.7159         Mean   :  1.216         Mean   :0.001522    
+ 3rd Qu.:  0.000         3rd Qu.: 0.0000         3rd Qu.:  0.000         3rd Qu.:0.000000    
+ Max.   :120.000         Max.   :84.0000         Max.   :120.000         Max.   :3.000000    
+ num_reemb_var17_ult1 num_sal_var16_ult1  num_var43_emit_ult1 num_var43_recib_ult1 num_trasp_var11_ult1
+ Min.   : 0.000000    Min.   : 0.000000   Min.   :  0.0000    Min.   :  0.0000     Min.   : 0.000      
+ 1st Qu.: 0.000000    1st Qu.: 0.000000   1st Qu.:  0.0000    1st Qu.:  0.0000     1st Qu.: 0.000      
+ Median : 0.000000    Median : 0.000000   Median :  0.0000    Median :  0.0000     Median : 0.000      
+ Mean   : 0.001409    Mean   : 0.005356   Mean   :  0.3892    Mean   :  0.8048     Mean   : 0.118      
+ 3rd Qu.: 0.000000    3rd Qu.: 0.000000   3rd Qu.:  0.0000    3rd Qu.:  0.0000     3rd Qu.: 0.000      
+ Max.   :21.000000    Max.   :15.000000   Max.   :180.0000    Max.   :264.0000     Max.   :93.000      
+ num_trasp_var17_out_ult1 num_trasp_var33_in_hace3 num_trasp_var33_in_ult1 num_venta_var44_ult1
+ Min.   :0.0000000        Min.   :0.0000000        Min.   :0.000000        Min.   : 0.000000   
+ 1st Qu.:0.0000000        1st Qu.:0.0000000        1st Qu.:0.000000        1st Qu.: 0.000000   
+ Median :0.0000000        Median :0.0000000        Median :0.000000        Median : 0.000000   
+ Mean   :0.0000564        Mean   :0.0003383        Mean   :0.000169        Mean   : 0.004228   
+ 3rd Qu.:0.0000000        3rd Qu.:0.0000000        3rd Qu.:0.000000        3rd Qu.: 0.000000   
+ Max.   :3.0000000        Max.   :3.0000000        Max.   :6.000000        Max.   :27.000000   
+ num_var45_hace2  num_var45_hace3   num_var45_ult1    num_var45_ult3   saldo_medio_var5_hace2
+ Min.   :  0.00   Min.   :  0.000   Min.   :  0.000   Min.   :  0.00   Min.   :  -128.4      
+ 1st Qu.:  0.00   1st Qu.:  0.000   1st Qu.:  0.000   1st Qu.:  0.00   1st Qu.:     0.0      
+ Median :  0.00   Median :  0.000   Median :  0.000   Median :  0.00   Median :     3.0      
+ Mean   :  5.41   Mean   :  3.917   Mean   :  4.353   Mean   : 13.68   Mean   :  1575.9      
+ 3rd Qu.:  3.00   3rd Qu.:  3.000   3rd Qu.:  3.000   3rd Qu.: 12.00   3rd Qu.:    90.0      
+ Max.   :342.00   Max.   :339.000   Max.   :510.000   Max.   :801.00   Max.   :812137.3      
+ saldo_medio_var5_hace3 saldo_medio_var5_ult1 saldo_medio_var5_ult3 saldo_medio_var8_hace2
+ Min.   :    -6.1       Min.   :  -922.4      Min.   :  -476.1      Min.   :  -151.95     
+ 1st Qu.:     0.0       1st Qu.:     0.0      1st Qu.:     0.0      1st Qu.:     0.00     
+ Median :     1.0       Median :     3.0      Median :     2.7      Median :     0.00     
+ Mean   :   894.7       Mean   :  1101.6      Mean   :  1058.2      Mean   :    71.28     
+ 3rd Qu.:    12.4       3rd Qu.:    90.0      3rd Qu.:    84.2      3rd Qu.:     0.00     
+ Max.   :960385.3       Max.   :601428.6      Max.   :544365.6      Max.   :152601.60     
+ saldo_medio_var8_hace3 saldo_medio_var8_ult1 saldo_medio_var8_ult3 saldo_medio_var12_hace2
+ Min.   :    0.00       Min.   : -1599.2      Min.   :  -452.4      Min.   :      0        
+ 1st Qu.:    0.00       1st Qu.:     0.0      1st Qu.:     0.0      1st Qu.:      0        
+ Median :    0.00       Median :     0.0      Median :     0.0      Median :      0        
+ Mean   :    8.38       Mean   :   131.3      Mean   :   116.0      Mean   :   3834        
+ 3rd Qu.:    0.00       3rd Qu.:     0.0      3rd Qu.:     0.0      3rd Qu.:      0        
+ Max.   :77586.21       Max.   :166612.4      Max.   :166612.4      Max.   :3000538        
+ saldo_medio_var12_hace3 saldo_medio_var12_ult1 saldo_medio_var12_ult3 saldo_medio_var13_corto_hace2
+ Min.   :     0.0        Min.   :      0        Min.   :      0        Min.   :     0               
+ 1st Qu.:     0.0        1st Qu.:      0        1st Qu.:      0        1st Qu.:     0               
+ Median :     0.0        Median :      0        Median :      0        Median :     0               
+ Mean   :   569.6        Mean   :   5502        Mean   :   4260        Mean   :  3652               
+ 3rd Qu.:     0.0        3rd Qu.:      0        3rd Qu.:      0        3rd Qu.:     0               
+ Max.   :580645.2        Max.   :3004186        Max.   :2272859        Max.   :450000               
+ saldo_medio_var13_corto_hace3 saldo_medio_var13_corto_ult1 saldo_medio_var13_corto_ult3
+ Min.   :     0.0              Min.   :     0               Min.   :     0              
+ 1st Qu.:     0.0              1st Qu.:     0               1st Qu.:     0              
+ Median :     0.0              Median :     0               Median :     0              
+ Mean   :   544.5              Mean   :  4837               Mean   :  3848              
+ 3rd Qu.:     0.0              3rd Qu.:     0               3rd Qu.:     0              
+ Max.   :304838.7              Max.   :450000               Max.   :450000              
+ saldo_medio_var13_largo_hace2 saldo_medio_var13_largo_hace3 saldo_medio_var13_largo_ult1
+ Min.   :     0.0              Min.   :     0                Min.   :      0             
+ 1st Qu.:     0.0              1st Qu.:     0                1st Qu.:      0             
+ Median :     0.0              Median :     0                Median :      0             
+ Mean   :   784.2              Mean   :   173                Mean   :    989             
+ 3rd Qu.:     0.0              3rd Qu.:     0                3rd Qu.:      0             
+ Max.   :568965.5              Max.   :534000                Max.   :1500000             
+ saldo_medio_var13_largo_ult3 saldo_medio_var13_medio_hace2 saldo_medio_var13_medio_ult1
+ Min.   :      0.0            Min.   :   0.00               Min.   :    0.000           
+ 1st Qu.:      0.0            1st Qu.:   0.00               1st Qu.:    0.000           
+ Median :      0.0            Median :   0.00               Median :    0.000           
+ Mean   :    774.9            Mean   :   0.25               Mean   :    0.733           
+ 3rd Qu.:      0.0            3rd Qu.:   0.00               3rd Qu.:    0.000           
+ Max.   :1034482.7            Max.   :7741.95               Max.   :30000.000           
+ saldo_medio_var13_medio_ult3 saldo_medio_var17_hace2 saldo_medio_var17_hace3 saldo_medio_var17_ult1
+ Min.   :    0.000            Min.   :    -0.03       Min.   :    0.00        Min.   :     0        
+ 1st Qu.:    0.000            1st Qu.:     0.00       1st Qu.:    0.00        1st Qu.:     0        
+ Median :    0.000            Median :     0.00       Median :    0.00        Median :     0        
+ Mean   :    0.492            Mean   :    33.09       Mean   :    3.69        Mean   :    83        
+ 3rd Qu.:    0.000            3rd Qu.:     0.00       3rd Qu.:    0.00        3rd Qu.:     0        
+ Max.   :18870.990            Max.   :266345.76       Max.   :76698.39        Max.   :498249        
+ saldo_medio_var17_ult3 saldo_medio_var29_hace2 saldo_medio_var29_ult1 saldo_medio_var29_ult3
+ Min.   :     0.00      Min.   :    0.000       Min.   :    0.000      Min.   :   0.000      
+ 1st Qu.:     0.00      1st Qu.:    0.000       1st Qu.:    0.000      1st Qu.:   0.000      
+ Median :     0.00      Median :    0.000       Median :    0.000      Median :   0.000      
+ Mean   :    67.41      Mean   :    0.304       Mean   :    0.299      Mean   :   0.203      
+ 3rd Qu.:     0.00      3rd Qu.:    0.000       3rd Qu.:    0.000      3rd Qu.:   0.000      
+ Max.   :285821.91      Max.   :10430.010       Max.   :13793.670      Max.   :7331.340      
+ saldo_medio_var33_hace2 saldo_medio_var33_hace3 saldo_medio_var33_ult1 saldo_medio_var33_ult3
+ Min.   :    0.00        Min.   :    0.000       Min.   :     0.00      Min.   :    0.00      
+ 1st Qu.:    0.00        1st Qu.:    0.000       1st Qu.:     0.00      1st Qu.:    0.00      
+ Median :    0.00        Median :    0.000       Median :     0.00      Median :    0.00      
+ Mean   :    9.99        Mean   :    1.827       Mean   :    15.95      Mean   :   11.32      
+ 3rd Qu.:    0.00        3rd Qu.:    0.000       3rd Qu.:     0.00      3rd Qu.:    0.00      
+ Max.   :50003.88        Max.   :20385.720       Max.   :138831.63      Max.   :91778.73      
+ saldo_medio_var44_hace2 saldo_medio_var44_hace3 saldo_medio_var44_ult1 saldo_medio_var44_ult3
+ Min.   :     0.00       Min.   :    0.000       Min.   :     0.0       Min.   :     0.00     
+ 1st Qu.:     0.00       1st Qu.:    0.000       1st Qu.:     0.0       1st Qu.:     0.00     
+ Median :     0.00       Median :    0.000       Median :     0.0       Median :     0.00     
+ Mean   :    23.84       Mean   :    1.551       Mean   :    65.2       Mean   :    49.12     
+ 3rd Qu.:     0.00       3rd Qu.:    0.000       3rd Qu.:     0.0       3rd Qu.:     0.00     
+ Max.   :126006.18       Max.   :24650.010       Max.   :361472.3       Max.   :239644.20     
+     var38              TARGET       
+ Min.   :    6481   Min.   :0.00000  
+ 1st Qu.:   67929   1st Qu.:0.00000  
+ Median :  106671   Median :0.00000  
+ Mean   :  117155   Mean   :0.03944  
+ 3rd Qu.:  118989   3rd Qu.:0.00000  
+ Max.   :11857856   Max.   :1.00000 
